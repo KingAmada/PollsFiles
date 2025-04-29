@@ -2293,7 +2293,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Optional: Send a message to Wix page requesting initial data immediately
         // Useful if data isn't pushed automatically on load.
-        // window.parent.postMessage({ type: 'requestInitialData' }, '*'); // Use specific origin
+        window.parent.postMessage({ type: 'requestInitialData' }, '*'); // Use specific origin
     }
 
     // --- Run Initialization ---
