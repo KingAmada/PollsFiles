@@ -41,23 +41,26 @@ document.addEventListener('DOMContentLoaded', () => {
             referralFeeInfo: 'The fee to get a code and be part of this leadership poll is non-refundable N1,000,000. Share it to climb the leaderboard!',
             legendText: 'Legend: NC, NE, NW, SW, SE, SS (North Central, North East, North West, South West, South East, South-South).',
             noVotesChart: 'No votes recorded yet.', noCombosGrid: 'No combinations voted for yet.', noLoyalists: 'No loyalist data available yet.', noComments: 'Be the first to comment on this combo!', noPieData: 'No votes yet to display popularity.', mapNoData: 'No voting data available',
-            // Tooltips
-            tipCompleteFields: 'Complete all required fields above and select candidates to enable voting.',
-            tipReferralCode: 'Optional: Enter code if someone referred you. Helps track influence.',
-            tipAgeRequirement: 'Must be 18 or older to participate.',
-            tipInfluencerInfo: 'Users ranked by the number of voters they referred for specific President/VP pairings using their unique code.',
-            tipContact: 'Questions or additions? Click here.',
-            tipReferralInfo: 'Share your unique code. Every vote using it boosts your rank for your chosen combo. A fee applies for code generation.',
-            tipSecureVote: 'Uses secure HTTPS connection for all data transmission.',
-            tipVoteIntegrity: 'Each vote generates a unique, verifiable submission ID (client-side hash for demonstration).',
-            tipSimulationInfo: 'This is a gamified polling simulation for demonstration purposes.',
+            // Tooltips (Using simple keys based on element ID or function)
+            tipMobileMenuBtn: 'Open navigation menu', // Example key for ID
+            tipGetReferralCodeBtn: 'Request a unique code to track your influence.', // Example key for ID
+            tipInfoIconReferral: 'Share your unique code. Every vote using it boosts your rank for your chosen combo. A fee applies for code generation.', // Example key for specific icon
+            tipInfoIconAge: 'You must be 18 or older to participate in this poll.', // Example key for specific icon
+            tipInfoIconReferralInput: 'Optional: Enter a code if an influencer shared one with you. Helps track influence campaigns.', // Example key for specific icon
+            tipVoteBtnDisabled: 'Complete all required fields above and select candidates to enable voting.', // Example key for vote button state
+            tipShareBtn: 'Share this combo', // Example key for share button
+            tipInfoIconLoyalistTitle: 'Users ranked by the number of voters they referred for specific President/VP pairings using their unique code.', // Example key for specific icon
+            tipContactUsBtn: 'Have questions or want to suggest a candidate addition? Click here.', // Example key for ID
+            tipSecurityBadgeHttps: 'Uses secure HTTPS connection for all data transmission.', // Example key for badge
+            tipSecurityBadgeIntegrity: 'Each vote generates a unique, verifiable submission ID (client-side hash for demonstration).', // Example key for badge
+            tipSecurityBadgeSimulation: 'This is a gamified polling simulation for demonstration purposes.', // Example key for badge
             // Errors
             errorSelectCandidates: 'Please select both a President and a Vice President.',
             errorSameCandidate: 'President and Vice President cannot be the same person.',
-            errorFillFields: 'Please ensure all voter information fields are filled correctly.',
+            errorFillFields: 'Please ensure all voter information fields are filled correctly (including age 18+).',
             errorCommentFields: 'Please enter name and comment.',
             errorReplyFields: 'Please enter name and reply.',
-            errorContactFields: 'Please fill out all contact form fields correctly!',
+            errorContactFields: 'Please fill out all required contact form fields correctly!',
             errorReferralFields: 'Please enter your name and phone/email.',
             errorShareAPI: 'Sharing failed or was cancelled.',
             errorClipboardCopy: 'Failed to copy sharing info.',
@@ -65,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errorPieLoad: 'Error loading popularity chart.',
             errorOperationFailed: 'Operation failed: {message}',
             errorUnknown: 'Unknown error',
+            errorInvalidPayload: 'Received invalid or missing data payload from Wix for type: {type}.',
         },
         ha: { // Hausa Translations (Example - Needs verification)
             navSelectCandidates: 'Zaɓi \'Yan Takara', navVote: 'Kaɗa Ƙuri\'a', navResults: 'Sakamako', navPopularity: 'Shahara', navComments: 'Sharhi',
@@ -91,18 +95,21 @@ document.addEventListener('DOMContentLoaded', () => {
             referralFeeInfo: 'Kudin samun lamba shine N1,000,000 wanda ba za a iya mayarwa ba. Raba shi don hawa kan allo!',
             legendText: 'Maɓalli: NC, NE, NW, SW, SE, SS (Arewa Maso Tsakiya, Arewa Maso Gabas, Arewa Maso Yamma, Kudu Maso Yamma, Kudu Maso Gabas, Kudu Maso Kudu).',
             noVotesChart: 'Babu ƙuri\'un da aka rikodin tukuna.', noCombosGrid: 'Babu haɗin da aka zaɓa tukuna.', noLoyalists: 'Babu bayanan masu biyayya tukuna.', noComments: 'Kasance farkon mai sharhi!', noPieData: 'Babu ƙuri\'u tukuna don nuna shahara.', mapNoData: 'Babu bayanan zaɓe',
-            tipCompleteFields: 'Cika dukkan filayen da ake buƙata kuma zaɓi \'yan takara don kunna zaɓe.',
-            tipReferralCode: 'Na zaɓi: Shigar da lamba idan wani ya tura ka.',
-            tipAgeRequirement: 'Dole ne ka cika shekaru 18 ko sama da haka.',
-            tipInfluencerInfo: 'Masu amfani da aka jera ta yawan masu jefa ƙuri\'a da suka tura.',
-            tipContact: 'Tambayoyi ko ƙari? Danna nan.',
-            tipReferralInfo: 'Raba lambarka ta musamman. Kowane ƙuri\'a yana haɓaka matsayinka. Ana biyan kuɗi.',
-            tipSecureVote: 'Yana amfani da haɗin HTTPS mai aminci.',
-            tipVoteIntegrity: 'Kowace ƙuri\'a tana haifar da ID na musamman (hash na abokin ciniki don nunawa).',
-            tipSimulationInfo: 'Wannan kwaikwayo ne na zaɓe don dalilai na nunawa.',
+            tipMobileMenuBtn: 'Buɗe menu na kewayawa',
+            tipGetReferralCodeBtn: 'Nemi lamba ta musamman don bin diddigin tasirinka.',
+            tipInfoIconReferral: 'Raba lambarka ta musamman. Kowane ƙuri\'a yana haɓaka matsayinka. Ana biyan kuɗi.',
+            tipInfoIconAge: 'Dole ne ka cika shekaru 18 ko sama da haka.',
+            tipInfoIconReferralInput: 'Na zaɓi: Shigar da lamba idan wani ya tura ka.',
+            tipVoteBtnDisabled: 'Cika dukkan filayen da ake buƙata kuma zaɓi \'yan takara don kunna zaɓe.',
+            tipShareBtn: 'Raba wannan haɗi',
+            tipInfoIconLoyalistTitle: 'Masu amfani da aka jera ta yawan masu jefa ƙuri\'a da suka tura.',
+            tipContactUsBtn: 'Tambayoyi ko ƙari? Danna nan.',
+            tipSecurityBadgeHttps: 'Yana amfani da haɗin HTTPS mai aminci.',
+            tipSecurityBadgeIntegrity: 'Kowace ƙuri\'a tana haifar da ID na musamman (hash na abokin ciniki don nunawa).',
+            tipSecurityBadgeSimulation: 'Wannan kwaikwayo ne na zaɓe don dalilai na nunawa.',
             errorSelectCandidates: 'Da fatan za a zaɓi Shugaban Ƙasa da Mataimaki.',
             errorSameCandidate: 'Shugaban Ƙasa da Mataimaki ba za su iya zama mutum ɗaya ba.',
-            errorFillFields: 'Da fatan za a tabbatar an cika dukkan filayen masu jefa ƙuri\'a daidai.',
+            errorFillFields: 'Da fatan za a tabbatar an cika dukkan filayen masu jefa ƙuri\'a daidai (ciki har da shekaru 18+).',
             errorCommentFields: 'Da fatan za a shigar da suna da sharhi.',
             errorReplyFields: 'Da fatan za a shigar da suna da amsa.',
             errorContactFields: 'Da fatan za a cika dukkan filayen tuntuɓa daidai!',
@@ -113,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errorPieLoad: 'Kuskuren loda jadawalin shahara.',
             errorOperationFailed: 'Aiki ya gaza: {message}',
             errorUnknown: 'Kuskuren da ba a sani ba',
+            errorInvalidPayload: 'An karɓi payload na bayanai mara inganci ko babu daga Wix don nau\'in: {type}.',
         },
         yo: { // Yoruba Translations (Example - Needs verification)
             navSelectCandidates: 'Yan Àwọn Olùdíje', navVote: 'Díbò', navResults: 'Àwọn Èsì', navPopularity: 'Gbajúgbajà', navComments: 'Àwọn Àlàyé',
@@ -139,18 +147,21 @@ document.addEventListener('DOMContentLoaded', () => {
             referralFeeInfo: 'Owó láti gba koodu jẹ́ N1,000,000 tí kò ṣeé dá padà. Pín in láti gun orí pátákó olórí!',
             legendText: 'Ìtumọ̀: NC, NE, NW, SW, SE, SS (Àríwá Àárín, Àríwá Ìlà Oòrùn, Àríwá Ìwọ̀ Oòrùn, Gúúsù Ìwọ̀ Oòrùn, Gúúsù Ìlà Oòrùn, Gúúsù Gúúsù).',
             noVotesChart: 'Kò sí ìbò tí a tíì gbà sílẹ̀.', noCombosGrid: 'Kò sí àpapọ̀ tí a tíì dìbò fún.', noLoyalists: 'Kò sí dátà alátìlẹ́yìn síbẹ̀.', noComments: 'Jẹ́ ẹni àkọ́kọ́ láti sọ àlàyé!', noPieData: 'Kò sí ìbò síbẹ̀ láti fi gbajúgbajà hàn.', mapNoData: 'Kò sí dátà ìdìbò',
-            tipCompleteFields: 'Parí gbogbo pápá tí a béèrè kí o sì yan àwọn olùdíje láti lè dìbò.',
-            tipReferralCode: 'Àṣàyàn: Tẹ koodu tí ẹnìkan bá tọ́ka rẹ sí.',
-            tipAgeRequirement: 'O gbọ́dọ̀ jẹ́ ọmọ ọdún 18 tàbí jù bẹ́ẹ̀ lọ.',
-            tipInfluencerInfo: 'Àwọn oníṣe tí a tò lẹ́sẹẹsẹ nípasẹ̀ iye àwọn adíbò tí wọ́n tọ́ka.',
-            tipContact: 'Ìbéèrè tàbí àfikún? Tẹ ibí.',
-            tipReferralInfo: 'Pín koodu àkànṣe rẹ. Gbogbo ìbò ń gbé ipò rẹ ga. Owó kan wà.',
-            tipSecureVote: 'Ó nlo ìsopọ̀ HTTPS tí ó ní ààbò.',
-            tipVoteIntegrity: 'Ìbò kọ̀ọ̀kan ń mú ID ìfisílẹ̀ jáde (hash oníbarà fún ìfihàn).',
-            tipSimulationInfo: 'Èyí jẹ́ simulation ìdìbò fún ète ìfihàn.',
+            tipMobileMenuBtn: 'Ṣí àkojọ aṣàwákiri',
+            tipGetReferralCodeBtn: 'Béèrè fún koodu àkànṣe láti tọpinpin ipa rẹ.',
+            tipInfoIconReferral: 'Pín koodu àkànṣe rẹ. Gbogbo ìbò ń gbé ipò rẹ ga. Owó kan wà.',
+            tipInfoIconAge: 'O gbọ́dọ̀ jẹ́ ọmọ ọdún 18 tàbí jù bẹ́ẹ̀ lọ.',
+            tipInfoIconReferralInput: 'Àṣàyàn: Tẹ koodu tí ẹnìkan bá tọ́ka rẹ sí.',
+            tipVoteBtnDisabled: 'Parí gbogbo pápá tí a béèrè kí o sì yan àwọn olùdíje láti lè dìbò.',
+            tipShareBtn: 'Pín àpapọ̀ yìí',
+            tipInfoIconLoyalistTitle: 'Àwọn oníṣe tí a tò lẹ́sẹẹsẹ nípasẹ̀ iye àwọn adíbò tí wọ́n tọ́ka.',
+            tipContactUsBtn: 'Ìbéèrè tàbí àfikún? Tẹ ibí.',
+            tipSecurityBadgeHttps: 'Ó nlo ìsopọ̀ HTTPS tí ó ní ààbò.',
+            tipSecurityBadgeIntegrity: 'Ìbò kọ̀ọ̀kan ń mú ID ìfisílẹ̀ jáde (hash oníbarà fún ìfihàn).',
+            tipSecurityBadgeSimulation: 'Èyí jẹ́ simulation ìdìbò fún ète ìfihàn.',
             errorSelectCandidates: 'Jọ̀wọ́ yan Ààrẹ àti Igbákejì.',
             errorSameCandidate: 'Ààrẹ àti Igbákejì kò le jẹ́ ẹni kan náà.',
-            errorFillFields: 'Jọ̀wọ́ rí i dájú pé a kọ gbogbo pápá ìwífún adíbò ní déédéé.',
+            errorFillFields: 'Jọ̀wọ́ rí i dájú pé a kọ gbogbo pápá ìwífún adíbò ní déédéé (pẹ̀lú ọjọ́ orí 18+).',
             errorCommentFields: 'Jọ̀wọ́ kọ orúkọ àti àlàyé.',
             errorReplyFields: 'Jọ̀wọ́ kọ orúkọ àti èsì.',
             errorContactFields: 'Jọ̀wọ́ kọ gbogbo pápá ìbánisọ̀rọ̀ ní déédéé!',
@@ -161,6 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errorPieLoad: 'Àṣìṣe nígbà tí a n gbé ṣáàtì gbajúgbajà.',
             errorOperationFailed: 'Iṣẹ́ kùnà: {message}',
             errorUnknown: 'Àṣìṣe tí a kò mọ̀',
+            errorInvalidPayload: 'A gba payload dátà tí kò tọ́ tàbí tí kò sí láti Wix fún irú: {type}.',
         },
         ig: { // Igbo Translations (Example - Needs verification)
             navSelectCandidates: 'Họrọ Ndị Na-azọ Ọkwa', navVote: 'Tụọ Vootu', navResults: 'Nsonaazụ', navPopularity: 'Ịma Ama', navComments: 'Okwu',
@@ -187,18 +199,21 @@ document.addEventListener('DOMContentLoaded', () => {
             referralFeeInfo: 'Ụgwọ iji nweta koodu bụ N1,000,000 anaghị akwụghachi. Kee ya ka ị rịgoro n\'elu bọọdụ ndu!',
             legendText: 'Nkọwa: NC, NE, NW, SW, SE, SS (North Central, North East, North West, South West, South East, South-South).',
             noVotesChart: 'Onwebeghị vootu edekọrọ.', noCombosGrid: 'Onwebeghị nchikota a tụrụ vootu.', noLoyalists: 'Onwebeghị data onye nkwado.', noComments: 'Bụrụ onye mbụ ịza okwu!', noPieData: 'Onwebeghị vootu iji gosi ịma ama.', mapNoData: 'Onwebeghị data vootu',
-            tipCompleteFields: 'Mezue oghere niile achọrọ ma họrọ ndị na-azọ ọkwa iji mee ka ịtụ vootu kwe omume.',
-            tipReferralCode: 'Nhọrọ: Tinye koodu ma ọ bụrụ na mmadụ tụrụ gị aka.',
-            tipAgeRequirement: 'Ị ga-adịrịrị afọ 18 ma ọ bụ karịa.',
-            tipInfluencerInfo: 'Ndị ọrụ a haziri site n\'ọnụ ọgụgụ ndị votu ha tụrụ aka.',
-            tipContact: 'Ajụjụ ma ọ bụ mgbakwunye? Pịa ebe a.',
-            tipReferralInfo: 'Kee koodu gị pụrụ iche. Vootu ọ bụla na-ebuli ọkwa gị. A na-akwụ ụgwọ.',
-            tipSecureVote: 'Na-eji njikọ HTTPS echekwara.',
-            tipVoteIntegrity: 'Vootu ọ bụla na-ewepụta ID ntinye pụrụ iche (hash onye ahịa maka ngosi).',
-            tipSimulationInfo: 'Nke a bụ simulation ntuli aka maka ebumnuche ngosi.',
+            tipMobileMenuBtn: 'Mepee menu nsoroụzọ',
+            tipGetReferralCodeBtn: 'Rịọ koodu pụrụ iche iji soro mmetụta gị.',
+            tipInfoIconReferral: 'Kee koodu gị pụrụ iche. Vootu ọ bụla na-ebuli ọkwa gị. A na-akwụ ụgwọ.',
+            tipInfoIconAge: 'Ị ga-adịrịrị afọ 18 ma ọ bụ karịa.',
+            tipInfoIconReferralInput: 'Nhọrọ: Tinye koodu ma ọ bụrụ na mmadụ tụrụ gị aka.',
+            tipVoteBtnDisabled: 'Mezue oghere niile achọrọ ma họrọ ndị na-azọ ọkwa iji mee ka ịtụ vootu kwe omume.',
+            tipShareBtn: 'Kee nchikota a',
+            tipInfoIconLoyalistTitle: 'Ndị ọrụ a haziri site n\'ọnụ ọgụgụ ndị votu ha tụrụ aka.',
+            tipContactUsBtn: 'Ajụjụ ma ọ bụ mgbakwunye? Pịa ebe a.',
+            tipSecurityBadgeHttps: 'Na-eji njikọ HTTPS echekwara.',
+            tipSecurityBadgeIntegrity: 'Vootu ọ bụla na-ewepụta ID ntinye pụrụ iche (hash onye ahịa maka ngosi).',
+            tipSecurityBadgeSimulation: 'Nke a bụ simulation ntuli aka maka ebumnuche ngosi.',
             errorSelectCandidates: 'Biko họrọ ma Onye Isi Ala ma Onye Nnochite Anya.',
             errorSameCandidate: 'Onye Isi Ala na Onye Nnochite Anya enweghị ike ịbụ otu onye.',
-            errorFillFields: 'Biko hụ na ejupụtara oghere ozi onye votu niile nke ọma.',
+            errorFillFields: 'Biko hụ na ejupụtara oghere ozi onye votu niile nke ọma (gụnyere afọ 18+).',
             errorCommentFields: 'Biko tinye aha na okwu.',
             errorReplyFields: 'Biko tinye aha na azịza.',
             errorContactFields: 'Biko jupụta oghere kọntaktị niile nke ọma!',
@@ -209,6 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errorPieLoad: 'Njehie ibudata chaatị ịma ama.',
             errorOperationFailed: 'Ọrụ dara: {message}',
             errorUnknown: 'Njehie amaghị',
+            errorInvalidPayload: 'Anabatara payload data ezighi ezi ma ọ bụ na-efu efu site na Wix maka ụdị: {type}.',
         },
     };
     let currentLang = 'en'; // Default language
@@ -224,34 +240,69 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to update all translatable UI elements
     const updateUITranslations = () => {
+        // Update elements with data-key
         document.querySelectorAll('[data-key]').forEach(el => {
             const key = el.dataset.key;
             const text = t(key);
             if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                 if (el.placeholder !== text) el.placeholder = text;
             } else if (el.tagName === 'OPTION' && el.value === "") {
-                 if (el.textContent !== text) el.textContent = text;
-            }
-             else {
-                 if (el.innerHTML !== text) el.innerHTML = text; // Use innerHTML to allow icons/tags if needed
+                if (el.textContent !== text) el.textContent = text;
+            } else {
+                // Use innerHTML carefully, only if you expect HTML tags within translations
+                // For most cases, textContent is safer
+                 if (el.firstElementChild && (el.firstElementChild.tagName === 'SPAN' || el.firstElementChild.tagName === 'CODE')) {
+                     // If element has specific structure (like vote hash), update only the text part
+                     const textNode = Array.from(el.childNodes).find(node => node.nodeType === Node.TEXT_NODE);
+                     if (textNode && textNode.textContent.trim() !== text) {
+                         textNode.textContent = text + ' '; // Add space before code/span
+                     } else if (!textNode) {
+                         // Handle cases where text needs to be prepended if missing
+                     }
+                 } else if (el.textContent !== text) {
+                    el.textContent = text; // Safer default
+                 }
             }
         });
-        // Update tooltips
-         document.querySelectorAll('[data-tip]').forEach(el => {
-             const tipKey = `tip${el.id.charAt(0).toUpperCase() + el.id.slice(1)}`; // Heuristic for tooltip keys
-             const tipText = t(tipKey) || t(el.dataset.tipKey) || el.getAttribute('data-tip'); // Try different ways to find key
-             if(tipText && tipText !== key) { // Only update if a translation exists
-                el.setAttribute('data-tip', tipText);
-             }
-         });
-         // Special cases like countdown label
-         const countdownTimer = getEl('countdownTimer');
-         if(countdownTimer) countdownTimer.dataset.label = t('voteEnds'); // Keep updating label for countdown func
 
-         // Update chart titles if charts exist (check needed as they might not be initialized yet)
-         // Example: if (mapChart) mapChart.set("tooltipText", t('mapTooltip'));
-         // Note: Updating chart labels/tooltips might require re-rendering or specific chart API calls.
+        // Update tooltips specifically
+        document.querySelectorAll('[data-tip]').forEach(el => {
+            let tipKey = '';
+            // Attempt to find a matching key in L10N based on ID or a specific data attribute
+            if (el.id) {
+                tipKey = `tip${el.id.charAt(0).toUpperCase() + el.id.slice(1)}`; // e.g., tipMobileMenuBtn
+            }
+             // Allow overriding with a specific data attribute if ID heuristic fails
+             if (!L10N[currentLang]?.[tipKey] && el.dataset.tipKey) {
+                 tipKey = el.dataset.tipKey;
+             }
+             // Special case for vote button disabled state
+             if (el.id === 'voteBtn' && el.disabled) {
+                 tipKey = 'tipVoteBtnDisabled';
+             }
+
+            const tipText = t(tipKey); // Get translation using the found key
+
+            // Only update if a translation was found AND it's different from the current attribute
+            if (tipText && tipKey !== tipText && el.getAttribute('data-tip') !== tipText) {
+                el.setAttribute('data-tip', tipText);
+            } else if (!tipText && tipKey && el.getAttribute('data-tip')) {
+                 // If no translation found for current lang, maybe revert to default English or clear it?
+                 // For now, let's leave the existing attribute.
+                 // console.warn(`No translation found for tooltip key: ${tipKey}`);
+            }
+        });
+
+        // Update countdown label
+        const countdownTimer = getEl('countdownTimer');
+        if (countdownTimer) countdownTimer.dataset.label = t('voteEnds');
+        // Note: The countdown function itself needs to read this data-label attribute
+
+        // Update chart/map titles (if they are initialized)
+        // This requires specific amCharts API calls, example:
+        // if (mapChart?.tooltip) { mapChart.tooltip.label.set("text", t('mapTooltipLabel')); }
     };
+
 
     // --- DOM Element References (using a helper for null checks) ---
     const getEl = (id) => document.getElementById(id);
@@ -329,6 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /** Formats large numbers into K (thousands) or M (millions) */
     function formatNumber(num) {
+        if (num == null || isNaN(num)) return '0'; // Handle null/undefined/NaN
         if (num >= 1000000) return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
         if (num >= 1000) return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
         return String(num);
@@ -380,7 +432,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (textSpan) textSpan.style.visibility = 'hidden'; // Hide text
         } else {
             buttonElement.classList.remove('loading');
-            buttonElement.disabled = false;
+            // Re-enable button ONLY if it's not the main vote button that depends on form validation
+            if (buttonElement.id !== 'voteBtn') {
+                 buttonElement.disabled = false;
+            } else {
+                // For vote button, re-evaluate disabled state based on form validity
+                updateProgress();
+            }
             if (textSpan) textSpan.style.visibility = 'visible'; // Show text
         }
     }
@@ -405,15 +463,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!countdownEl) return;
 
         // Example End Time: 3 days, 2 hours, 3 minutes, 45 seconds from now
-        // Replace this with the actual end date/time from your data source
+        // !! IMPORTANT: Replace this with the actual end date/time from your data source !!
         const endMs = Date.now() + (3 * 24 * 60 * 60 + 2 * 60 * 60 + 3 * 60 + 45) * 1000;
 
         const update = () => {
             const current = Date.now();
             const diff = endMs - current;
+            const currentLabel = countdownEl.dataset.label || 'Poll Ends'; // Get current label for translation
 
             if (diff <= 0) {
-                countdownEl.textContent = t('voteEnds') + ": Ended!"; // Use translated label
+                countdownEl.textContent = `${currentLabel}: Ended!`; // Use translated label
                 if (countdownInterval) clearInterval(countdownInterval);
                 // Optionally disable voting here
                 if(voteBtn) voteBtn.disabled = true;
@@ -425,8 +484,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let h = Math.floor(s / 3600); s %= 3600;
             let m = Math.floor(s / 60); s %= 60;
 
-            // Use translated label from data attribute
-            countdownEl.textContent = `${countdownEl.dataset.label || 'Poll Ends'}: ${d}d ${h}h ${m}m ${s}s`;
+            countdownEl.textContent = `${currentLabel}: ${d}d ${h}h ${m}m ${s}s`;
         };
 
         if (countdownInterval) clearInterval(countdownInterval); // Clear previous interval if any
@@ -435,6 +493,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Wikipedia Lightbox ---
+    const wikiLinks = { // Keep your candidate-wiki mapping here
+        "Sanusi Lamido":"https://en.wikipedia.org/wiki/Sanusi_Lamido_Sanusi",
+        "Goodluck Jonathan":"https://en.wikipedia.org/wiki/Goodluck_Jonathan",
+        "Aminu Tambuwal":"https://en.wikipedia.org/wiki/Aminu_Tambuwal",
+        "Rotimi Amaechi":"https://en.wikipedia.org/wiki/Rotimi_Amaechi",
+        "Bukola Saraki":"https://en.wikipedia.org/wiki/Bukola_Saraki",
+        "Godswill Akpabio":"https://en.wikipedia.org/wiki/Godswill_Akpabio",
+        "Nyesom Wike":"https://en.wikipedia.org/wiki/Nyesom_Wike",
+        "Yemi Osinbajo":"https://en.wikipedia.org/wiki/Yemi_Osinbajo",
+        "Yakubu Dogara":"https://en.wikipedia.org/wiki/Yakubu_Dogara",
+        "Atiku Abubakar":"https://en.wikipedia.org/wiki/Atiku_Abubakar",
+        "Rabiu Kwankwaso":"https://en.wikipedia.org/wiki/Rabiu_Kwankwaso",
+        "Peter Obi":"https://en.wikipedia.org/wiki/Peter_Obi",
+        "Nasir El-Rufai":"https://en.wikipedia.org/wiki/Nasir_El-Rufai",
+        "Kashim Shettima":"https://en.wikipedia.org/wiki/Kashim_Shettima",
+        "Bola Tinubu":"https://en.wikipedia.org/wiki/Bola_Tinubu"
+    };
+
     function showWikiLightbox(candidateName) {
         if (!wikiLightbox || !wikiIframe) return;
         const link = wikiLinks[candidateName] || "about:blank"; // Use stored links
@@ -474,17 +550,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const canVote = (done === steps && selectedPresident !== selectedVP);
 
-        if (canVote) {
-            if (voteBtn.disabled) { // Only add bounce if it wasn't already enabled
+        // Update disabled state and tooltip
+        if (canVote && !voteBtn.classList.contains('loading') && !voteBtn.classList.contains('success')) {
+             if (voteBtn.disabled) { // Only add bounce if it wasn't already enabled
                  voteBtn.classList.add('bounce');
-            }
-            voteBtn.disabled = false;
-            voteBtn.setAttribute('data-tip', ''); // Clear tooltip when enabled
-        } else {
-            voteBtn.disabled = true;
-            voteBtn.classList.remove('bounce');
-            voteBtn.setAttribute('data-tip', t('tipCompleteFields')); // Set tooltip when disabled
-        }
+             }
+             voteBtn.disabled = false;
+             voteBtn.removeAttribute('data-tip'); // Remove tooltip when enabled
+         } else if (!voteBtn.classList.contains('loading') && !voteBtn.classList.contains('success')) {
+             voteBtn.disabled = true;
+             voteBtn.classList.remove('bounce');
+             voteBtn.setAttribute('data-tip', t('tipVoteBtnDisabled')); // Set tooltip when disabled
+         }
+         // Re-apply translation to tooltip in case language changed while disabled
+         if(voteBtn.disabled) {
+             const currentTip = voteBtn.getAttribute('data-tip');
+             const translatedTip = t('tipVoteBtnDisabled');
+             if(currentTip !== translatedTip) {
+                 voteBtn.setAttribute('data-tip', translatedTip);
+             }
+         }
     }
 
     // --- Data Reading Functions (from hidden tables - Optional Fallback) ---
@@ -514,7 +599,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         console.log("Read candidates from table:", candidates.length);
-        return true; // Indicate data was read
+        return candidates.length > 0; // Indicate if data was actually read
     }
 
     function readComboTable() {
@@ -536,7 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
          console.log("Read combos from table:", Object.keys(votesData).length);
-        return true;
+        return Object.keys(votesData).length > 0;
     }
 
     function readUserDataTable() {
@@ -551,7 +636,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const c = r.querySelectorAll('td');
             // ID, Combo, ParentID, Name, Comment, [Phone, State, City, Gender, Age]
             if (c.length >= 5) {
-                const id = c[0]?.textContent.trim() ?? `temp-${Date.now()}-${Math.random()}`; // Need an ID
+                const id = c[0]?.textContent.trim() || `temp-${Date.now()}-${Math.random()}`; // Need an ID
                 const combo = c[1]?.textContent.trim() ?? '';
                 const pid = parseInt(c[2]?.textContent.trim() || '0');
                 const nm = c[3]?.textContent.trim() || "Anonymous";
@@ -587,7 +672,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         console.log("Read user comments from table.");
-        return true;
+        return allComments.length > 0;
     }
 
     function readLoyalistDataTable() {
@@ -620,7 +705,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         console.log("Read loyalists from table:", Object.keys(loyalists).length);
-        return true;
+        return Object.keys(loyalists).length > 0;
     }
 
     // --- UI Rendering Functions ---
@@ -642,6 +727,7 @@ document.addEventListener('DOMContentLoaded', () => {
             img.className = 'candidate-photo';
             img.src = candidateImages[candidateName] || 'https://placehold.co/80x80/cccccc/ffffff?text=N/A';
             img.alt = `Photo of ${candidateName}`;
+            img.loading = 'lazy'; // Lazy load images
             img.onerror = () => imageError(img); // Fallback for broken images
 
             // Name
@@ -773,7 +859,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const maxVotes = sortedVotes[0][1]; // Votes of the top combo
+        const maxVotes = sortedVotes[0][1] || 1; // Votes of the top combo, avoid division by zero
 
         sortedVotes.forEach(([combo, count]) => {
             const row = document.createElement('div');
@@ -795,7 +881,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const barFill = document.createElement('div');
             barFill.className = 'bar-fill';
             // Calculate percentage relative to the top combo
-            const percentage = (maxVotes > 0) ? (count / maxVotes) * 100 : 0;
+            const percentage = (count / maxVotes) * 100;
             barFill.style.width = `${percentage.toFixed(1)}%`;
             barFill.setAttribute('aria-valuenow', count); // Accessibility
             barFill.setAttribute('aria-valuemin', '0');
@@ -841,7 +927,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (navigator.share) {
                     navigator.share({ title: 'Nigeria Election Poll Combo', text: shareText })
                         .then(() => console.log('Successful share'))
-                        .catch((error) => console.log('Error sharing:', error));
+                        .catch((error) => {
+                             console.log('Error sharing:', error)
+                             alert(t('errorShareAPI'));
+                        });
                 } else {
                     // Fallback: Copy to clipboard
                     navigator.clipboard.writeText(shareText)
@@ -859,12 +948,14 @@ document.addEventListener('DOMContentLoaded', () => {
             imgPres.className = 'combo-img';
             imgPres.src = candidateImages[presName] || 'https://placehold.co/55x55/cccccc/ffffff?text=P';
             imgPres.alt = `${presName}`;
+            imgPres.loading = 'lazy';
             imgPres.onerror = () => imageError(imgPres);
 
             const imgVP = document.createElement('img');
             imgVP.className = 'combo-img';
             imgVP.src = candidateImages[vpName] || 'https://placehold.co/55x55/cccccc/ffffff?text=V';
             imgVP.alt = `${vpName}`;
+             imgVP.loading = 'lazy';
             imgVP.onerror = () => imageError(imgVP);
 
             topDiv.appendChild(imgPres);
@@ -949,15 +1040,23 @@ document.addEventListener('DOMContentLoaded', () => {
         let foundAny = false;
 
         // 2. Render each combo that has loyalists
-        Object.keys(comboMap).forEach((comboName) => {
+        // Sort combos by the highest supporter count within each combo for overall ranking
+        const sortedCombos = Object.keys(comboMap).sort((a, b) => {
+            const maxSupportersA = Math.max(0, ...comboMap[a].map(l => l.supporters));
+            const maxSupportersB = Math.max(0, ...comboMap[b].map(l => l.supporters));
+            return maxSupportersB - maxSupportersA;
+        });
+
+
+        sortedCombos.forEach((comboName) => {
             const arr = comboMap[comboName];
-            if (!arr || arr.length === 0) return; // Skip if no loyalists for this combo
+            // Already checked length implicitly by Object.keys(comboMap) if map is built correctly
             foundAny = true;
 
-            // Sort loyalists by supporter count (descending)
+            // Sort loyalists *within* this combo by supporter count (descending)
             arr.sort((a, b) => b.supporters - a.supporters);
 
-            // Use the first loyalist's record for combo images (assuming they are consistent)
+            // Use the first loyalist's record for combo images
             const { comboImg1, comboImg2 } = arr[0];
 
             // Create wrapper for this combo block
@@ -981,11 +1080,13 @@ document.addEventListener('DOMContentLoaded', () => {
             img1.className = 'loyalist-square-img';
             img1.src = comboImg1;
             img1.alt = `Candidate 1 for ${comboName}`;
+            img1.loading = 'lazy';
             img1.onerror = () => imageError(img1);
             const img2 = document.createElement('img');
             img2.className = 'loyalist-square-img';
             img2.src = comboImg2;
             img2.alt = `Candidate 2 for ${comboName}`;
+            img2.loading = 'lazy';
             img2.onerror = () => imageError(img2);
             imagesCol.appendChild(img1);
             imagesCol.appendChild(img2);
@@ -993,7 +1094,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Right Column: Influencer Rows
             const influencersCol = document.createElement('div');
             influencersCol.className = 'loyalist-influencers-col';
-            arr.forEach((loy, index) => {
+            arr.slice(0, 5).forEach((loy, index) => { // Show top 5 per combo
                 const icon = medalIcons[index] || '⭐'; // Medal or star
                 const row = document.createElement('div');
                 row.className = 'loyalist-row';
@@ -1081,10 +1182,12 @@ document.addEventListener('DOMContentLoaded', () => {
         actionsDiv.className = 'comment-actions';
         actionsDiv.textContent = t('replyButton'); // Translate
         actionsDiv.setAttribute('aria-expanded', 'false'); // Initial state
+        actionsDiv.setAttribute('aria-controls', `reply-form-${commentData.id}`); // Link to form
 
         // Reply Form (initially hidden)
         const replyFormDiv = document.createElement('div');
         replyFormDiv.className = 'reply-form';
+        replyFormDiv.id = `reply-form-${commentData.id}`; // Unique ID for aria-controls
         // replyFormDiv.style.display = 'none'; // CSS handles initial display:none
 
         const replyNameInput = document.createElement('input');
@@ -1108,7 +1211,7 @@ document.addEventListener('DOMContentLoaded', () => {
         actionsDiv.addEventListener('click', () => {
             const isVisible = replyFormDiv.style.display === 'flex';
             replyFormDiv.style.display = isVisible ? 'none' : 'flex';
-            actionsDiv.setAttribute('aria-expanded', !isVisible);
+            actionsDiv.setAttribute('aria-expanded', String(!isVisible)); // Use string true/false
             if (!isVisible) {
                 replyNameInput.focus(); // Focus name field when opening
             }
@@ -1125,11 +1228,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             setButtonLoading(replyBtn, true); // Show loading spinner
 
+            // Generate a temporary ID for optimistic update
+            const tempId = `temp-${Date.now()}-${Math.random()}`;
+
             const replyPayload = {
                 parentID: commentData.id, // ID of the comment being replied to
                 name: replyName,
                 text: replyText,
-                comboKey: commentData.comboKey // Associate with the correct combo
+                comboKey: commentData.comboKey, // Associate with the correct combo
+                tempId: tempId // Include temp ID for backend matching
             };
 
             console.log("Sending reply message to parent page:", replyPayload);
@@ -1139,10 +1246,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 payload: replyPayload
             }, '*'); // Use specific origin in production
 
-            // Optimistic UI Update: Add reply locally (will be replaced by Wix data later if IDs differ)
+            // Optimistic UI Update: Add reply locally
             const tempReplyData = {
                 ...replyPayload,
-                id: `temp-${Date.now()}-${Math.random()}`, // Temporary unique ID
+                id: tempId, // Use the generated temporary ID
                 replies: []
             };
             if (!commentData.replies) commentData.replies = [];
@@ -1193,11 +1300,12 @@ document.addEventListener('DOMContentLoaded', () => {
              return;
         }
         // Dispose previous chart instance if it exists
-        if (mapChart) {
+        if (mapChart && !mapChart.isDisposed()) { // Check if not already disposed
             mapChart.dispose();
-            mapChart = null;
-            polygonSeries = null;
         }
+        mapChart = null; // Clear references
+        polygonSeries = null;
+
 
         am5.ready(() => {
             try {
@@ -1318,8 +1426,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /** Updates the amCharts map display with processed state data */
     function renderMap() {
-        if (!polygonSeries || !mapChart) {
-            // console.log("renderMap: Map or series not ready yet.");
+        if (!polygonSeries || !mapChart || mapChart.isDisposed()) { // Check if disposed
+            // console.log("renderMap: Map or series not ready or disposed.");
             return;
         }
 
@@ -1350,6 +1458,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 voteCount = comboInfo.count;
                 // Extract candidate names for images (optional)
                 const [presName = '', vpName = ''] = comboInfo.combo.split(" & ");
+                // Use placeholder if image not found in candidateImages
                 const imgPresSrc = candidateImages[presName] || 'https://placehold.co/35x35/cccccc/ffffff?text=P';
                 const imgVPSrc = candidateImages[vpName] || 'https://placehold.co/35x35/cccccc/ffffff?text=V';
 
@@ -1359,8 +1468,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         Top Combo:<br><strong>${comboInfo.combo}</strong><br>
                         Votes: ${formatNumber(voteCount)}
                         <div style="margin-top: 5px; display: flex; justify-content: center; gap: 5px;">
-                           <img src="${imgPresSrc}" alt="${presName}" style="width:30px; height:30px; border-radius:50%; border: 1px solid #aaa;">
-                           <img src="${imgVPSrc}" alt="${vpName}" style="width:30px; height:30px; border-radius:50%; border: 1px solid #aaa;">
+                           <img src="${imgPresSrc}" alt="${presName}" style="width:30px; height:30px; border-radius:50%; border: 1px solid #aaa; background-color:#eee;">
+                           <img src="${imgVPSrc}" alt="${vpName}" style="width:30px; height:30px; border-radius:50%; border: 1px solid #aaa; background-color:#eee;">
                         </div>
                     </div>`;
             }
@@ -1387,11 +1496,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Dispose previous chart instance
-        if (pieRoot) {
+        if (pieRoot && !pieRoot.isDisposed()) { // Check if not already disposed
             pieRoot.dispose();
-            pieRoot = null;
-            currentPieChart = null;
         }
+         pieRoot = null; // Clear references
+         currentPieChart = null;
+
 
         // Prepare data: { combo: "Name", votes: count }
         const chartData = Object.entries(votesData)
@@ -1452,7 +1562,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 // Hide labels for small slices
                  series.labels.template.adapters.add("hidden", function(hidden, target) {
-                     return target.dataItem.get("valuePercentTotal") < 3; // Hide if less than 3%
+                     return !target.dataItem || target.dataItem.get("valuePercentTotal") < 3; // Hide if less than 3% or no dataItem
                  });
 
                 // Configure tick lines for labels (optional)
@@ -1465,7 +1575,7 @@ document.addEventListener('DOMContentLoaded', () => {
                  });
                  // Hide ticks for small slices if labels are hidden
                  series.ticks.template.adapters.add("hidden", function(hidden, target) {
-                     return target.dataItem.get("valuePercentTotal") < 3;
+                     return !target.dataItem || target.dataItem.get("valuePercentTotal") < 3;
                  });
 
 
@@ -1513,11 +1623,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (langPicker) {
             langPicker.addEventListener('change', (e) => {
                 currentLang = e.target.value;
+                document.documentElement.lang = currentLang; // Update html lang attribute
                 updateUITranslations(); // Update all text
                 startCountdown(); // Restart countdown to update label
                 // Potentially re-render charts if they have translatable text
-                renderMap();
-                renderPieChart();
+                renderMap(); // Re-render map to update tooltips
+                renderPieChart(); // Re-render pie to update tooltips/legend
             });
         }
 
@@ -1723,15 +1834,15 @@ document.addEventListener('DOMContentLoaded', () => {
         renderComboLoyalists();
         renderPieChart();
         // Optionally update map if map data includes total votes per state that needs updating locally
-        // renderMap();
+        renderMap(); // Re-render map as state votes might change leader
 
         // Show visual confirmation message with hash
         if (voteConfirmationDiv) {
             const detailsSpan = voteConfirmationDiv.querySelector('.confirmation-details');
-            const hashSpan = voteConfirmationDiv.querySelector('.vote-hash-display code'); // Target the code element
+            const hashValueEl = voteConfirmationDiv.querySelector('#voteHashValue'); // Target the code element
 
             if (detailsSpan) detailsSpan.textContent = t('voteSuccessDetails', { combo: comboKey });
-            if (hashSpan) hashSpan.textContent = `${voteHash.substring(0, 16)}...`; // Show partial hash
+            if (hashValueEl) hashValueEl.textContent = `${voteHash.substring(0, 16)}...`; // Show partial hash
 
             voteConfirmationDiv.style.display = 'block'; // Show the message
         }
@@ -1745,8 +1856,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // 7. Reset Button State (after a delay)
         setTimeout(() => {
             voteBtn.classList.remove('success'); // Remove checkmark class
-            setButtonLoading(voteBtn, false); // Reset loading state (re-enables button)
-            updateProgress(); // Recalculate progress (might disable button again)
+            setButtonLoading(voteBtn, false); // Reset loading state (re-enables button via updateProgress)
+            // updateProgress(); // updateProgress is called within setButtonLoading for voteBtn
             if (voteConfirmationDiv) voteConfirmationDiv.style.display = 'none'; // Hide confirmation msg
         }, 4000); // Keep confirmation visible for 4 seconds
     }
@@ -1767,11 +1878,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setButtonLoading(comboCommentPostBtn, true); // Show loading
 
+        // Generate temporary ID for optimistic update
+        const tempId = `temp-${Date.now()}-${Math.random()}`;
+
         const commentPayload = {
             parentID: 0, // 0 indicates a top-level comment
             name: name,
             text: text,
-            comboKey: currentCombo // Associate with the current combo
+            comboKey: currentCombo, // Associate with the current combo
+            tempId: tempId // Send temp ID for matching confirmation
         };
 
         console.log("Sending new comment message to parent page:", commentPayload);
@@ -1784,7 +1899,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Optimistic UI Update
         const tempCommentData = {
             ...commentPayload,
-            id: `temp-${Date.now()}-${Math.random()}`, // Temporary unique ID
+            id: tempId, // Use the generated temporary ID
             replies: []
         };
         if (!comboComments[currentCombo]) comboComments[currentCombo] = [];
@@ -1809,15 +1924,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const submitButton = lightboxForm.querySelector('.lightbox-submit-btn');
         const fullName = contactFullNameEl.value.trim();
-        const phone = contactPhoneEl.value.trim();
-        const email = contactEmailEl.value.trim();
-        const message = contactMessageEl?.value.trim(); // Optional message
+        const phone = contactPhoneEl.value.trim(); // Phone is optional here based on HTML
+        const email = contactEmailEl.value.trim(); // Email is optional here based on HTML
+        const message = contactMessageEl?.value.trim();
 
-        // Basic Validation
-        if (!fullName || !phone || !email || !/\S+@\S+\.\S+/.test(email)) { // Simple email check
-            alert(t('errorContactFields'));
+        // Basic Validation - only full name is strictly required by HTML
+        if (!fullName) {
+            alert(t('errorContactFields')); // Adjust error message if needed
             return;
         }
+        // Optional: Add validation for email format if provided
+        if (email && !/\S+@\S+\.\S+/.test(email)) {
+             alert(t('errorContactFields')); // Or a more specific email error
+             return;
+        }
+
 
         setButtonLoading(submitButton, true); // Show loading
 
@@ -1825,7 +1946,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // TODO: Replace simulation with actual postMessage to Wix
         console.log("Simulating contact form submission:", contactPayload);
-        // window.parent.postMessage({ type: 'submitContactForm', payload: contactPayload }, '*');
+        // Example: window.parent.postMessage({ type: 'submitContactForm', payload: contactPayload }, '*');
 
         // Simulate network delay & show success
         setTimeout(() => {
@@ -1901,227 +2022,229 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Wix Message Listener ---
     window.addEventListener("message", (event) => {
         // IMPORTANT: Add origin check in production for security
-        // const allowedOrigin = "https://your-wix-site.com"; // Replace with your site URL
+        // const allowedOrigin = "https://your-wix-site-url.com"; // Replace with your actual site URL
         // if (event.origin !== allowedOrigin) {
-        //     console.warn("Message received from unexpected origin:", event.origin);
-        //     return;
+        //     console.warn(`Message received from unexpected origin: ${event.origin}. Expected ${allowedOrigin}.`);
+        //     return; // Ignore message from wrong origin
         // }
 
         const msg = event.data;
 
-        if (msg && typeof msg === 'object' && msg.type) {
-            console.log("Received message from Wix Page:", msg); // Log received message
-
-            switch (msg.type) {
-                case "electionData":
-                    // Populate application state and UI with data from Wix
-                    populateDataFromWix(msg.payload);
-                    break;
-
-                case "voteRecorded":
-                    // Confirmation that a vote was saved successfully by the backend
-                    console.log("Vote recorded confirmation received.", msg.payload);
-                    // Optionally display the referral code if provided by backend
-                    if (msg.payload?.newReferralCode) {
-                        console.log("Received new referral code (for info only):", msg.payload.newReferralCode);
-                        // Example: alert(`Vote recorded! Your personal referral code is ${msg.payload.newReferralCode}`);
-                    }
-                    // UI was already updated optimistically, maybe just log success
-                    break;
-
-                case "referralCodeRequested":
-                    // Confirmation that the referral request was received by backend
-                    console.log("Referral code request confirmation received:", msg.payload);
-                    // Confirmation message is already shown in the lightbox form handler
-                    // Optionally close the lightbox automatically here if desired
-                    // closeReferralLightbox();
-                    break;
-
-                case "commentAdded":
-                    // Confirmation that a comment/reply was saved, potentially with the final DB ID
-                    console.log("Comment added confirmation received:", msg.payload);
-                    // Update local temporary comment ID with the real ID from the database
-                    if (msg.payload?._id && msg.payload?.comboKey && msg.payload?.tempId) {
-                        const combo = msg.payload.comboKey;
-                        const realId = msg.payload._id;
-                        const tempId = msg.payload.tempId; // Backend should echo back the tempId
-
-                        if (comboComments[combo]) {
-                            const findAndUpdate = (comments) => {
-                                for (let i = 0; i < comments.length; i++) {
-                                    if (comments[i].id === tempId) {
-                                        console.log(`Updating temp comment ID ${tempId} to ${realId}`);
-                                        comments[i].id = realId; // Update the ID
-                                        // Update dataset ID in the DOM if element exists
-                                        const commentElement = comboCommentListEl?.querySelector(`.combo-comment-item[data-comment-id="${tempId}"]`);
-                                        commentElement?.setAttribute('data-comment-id', realId);
-                                        return true; // Found and updated
-                                    }
-                                    // Recursively search in replies
-                                    if (comments[i].replies && findAndUpdate(comments[i].replies)) {
-                                        return true;
-                                    }
-                                }
-                                return false; // Not found in this branch
-                            };
-                            findAndUpdate(comboComments[combo]);
-                        }
-                    }
-                    break;
-
-                case "likeRecorded":
-                    // Confirmation that a like was recorded
-                    console.log("Like recorded confirmation received:", msg.payload);
-                    // UI was already updated optimistically. Maybe refresh counts if backend sends updated total.
-                    if (msg.payload?.candidateName && typeof msg.payload?.totalLikes === 'number') {
-                        candidateLikes[msg.payload.candidateName] = msg.payload.totalLikes;
-                        updateCandidateLikesUI(msg.payload.candidateName);
-                    }
-                    break;
-
-                case "operationFailed":
-                    // Handle errors reported by the Wix backend
-                    const errorMessage = msg.payload?.message || t('errorUnknown');
-                    console.error("Received 'operationFailed' message from Wix Page:", errorMessage, msg.payload);
-                    alert(t('errorOperationFailed', { message: errorMessage }));
-
-                    // Re-enable any relevant buttons stuck in loading state
-                    const failedOperation = msg.payload?.operation;
-                    if (failedOperation === 'vote' && voteBtn) {
-                        setButtonLoading(voteBtn, false);
-                        voteBtn.classList.remove('success');
-                    } else if (failedOperation === 'addComment') {
-                        if(comboCommentPostBtn) setButtonLoading(comboCommentPostBtn, false);
-                        // Also reset any potentially loading reply buttons
-                         document.querySelectorAll('.reply-btn.loading').forEach(btn => setButtonLoading(btn, false));
-                    } else if (failedOperation === 'requestReferralCode') {
-                         const btn = referralRequestForm?.querySelector('.lightbox-submit-btn');
-                         if(btn) setButtonLoading(btn, false);
-                    } else if (failedOperation === 'recordLike') {
-                        // Re-enable the specific like button if possible (might be tricky)
-                        // For simplicity, could just ensure all like buttons are enabled
-                         document.querySelectorAll('.like-btn:disabled').forEach(btn => btn.disabled = false);
-                    }
-                    // TODO: Potentially revert optimistic UI updates here if necessary
-                    break;
-
-                default:
-                    // console.log("Received message of unknown type:", msg.type);
-                    break;
-            }
-        } else {
-             console.log("Received non-standard message:", event.data);
+        // Basic validation of the message structure
+        if (!msg || typeof msg !== 'object' || !msg.type) {
+             console.log("Received non-standard or invalid message:", event.data);
+             return; // Ignore malformed messages
         }
+
+        console.log("Received message from Wix Page:", msg); // Log received message
+
+        switch (msg.type) {
+            case "electionData":
+                // FIX: Check if payload exists and is an object before processing
+                if (msg.payload && typeof msg.payload === 'object') {
+                    populateDataFromWix(msg.payload);
+                } else {
+                    console.error(t('errorInvalidPayload', { type: msg.type }), msg);
+                }
+                break;
+
+            case "voteRecorded":
+                console.log("Vote recorded confirmation received.", msg.payload);
+                if (msg.payload?.newReferralCode) {
+                    console.log("Received new referral code (for info only):", msg.payload.newReferralCode);
+                }
+                break;
+
+            case "referralCodeRequested":
+                console.log("Referral code request confirmation received:", msg.payload);
+                break;
+
+            case "commentAdded":
+                console.log("Comment added confirmation received:", msg.payload);
+                // Update local temporary comment ID with the real ID from the database
+                if (msg.payload?._id && msg.payload?.comboKey && msg.payload?.tempId) {
+                    const combo = msg.payload.comboKey;
+                    const realId = msg.payload._id;
+                    const tempId = msg.payload.tempId; // Backend should echo back the tempId
+
+                    if (comboComments[combo]) {
+                        const findAndUpdate = (comments) => {
+                            for (let i = 0; i < comments.length; i++) {
+                                if (comments[i].id === tempId) {
+                                    console.log(`Updating temp comment ID ${tempId} to ${realId}`);
+                                    comments[i].id = realId; // Update the ID
+                                    // Update dataset ID in the DOM if element exists
+                                    const commentElement = comboCommentListEl?.querySelector(`.combo-comment-item[data-comment-id="${tempId}"]`);
+                                    commentElement?.setAttribute('data-comment-id', realId);
+                                    return true; // Found and updated
+                                }
+                                // Recursively search in replies
+                                if (comments[i].replies && findAndUpdate(comments[i].replies)) {
+                                    return true;
+                                }
+                            }
+                            return false; // Not found in this branch
+                        };
+                        findAndUpdate(comboComments[combo]);
+                    }
+                }
+                break;
+
+            case "likeRecorded":
+                console.log("Like recorded confirmation received:", msg.payload);
+                // Update counts if backend sends updated total.
+                if (msg.payload?.candidateName && typeof msg.payload?.totalLikes === 'number') {
+                    candidateLikes[msg.payload.candidateName] = msg.payload.totalLikes;
+                    updateCandidateLikesUI(msg.payload.candidateName);
+                }
+                break;
+
+            case "operationFailed":
+                const errorMessage = msg.payload?.message || t('errorUnknown');
+                console.error("Received 'operationFailed' message from Wix Page:", errorMessage, msg.payload);
+                alert(t('errorOperationFailed', { message: errorMessage }));
+
+                // Re-enable any relevant buttons stuck in loading state
+                const failedOperation = msg.payload?.operation;
+                if (failedOperation === 'vote' && voteBtn) {
+                    setButtonLoading(voteBtn, false);
+                    voteBtn.classList.remove('success');
+                } else if (failedOperation === 'addComment') {
+                    if(comboCommentPostBtn) setButtonLoading(comboCommentPostBtn, false);
+                    document.querySelectorAll('.reply-btn.loading').forEach(btn => setButtonLoading(btn, false));
+                } else if (failedOperation === 'requestReferralCode') {
+                     const btn = referralRequestForm?.querySelector('.lightbox-submit-btn');
+                     if(btn) setButtonLoading(btn, false);
+                } else if (failedOperation === 'recordLike') {
+                     document.querySelectorAll('.like-btn:disabled').forEach(btn => btn.disabled = false);
+                }
+                // TODO: Potentially revert optimistic UI updates here if necessary
+                break;
+
+            default:
+                // console.log("Received message of unknown type:", msg.type);
+                break;
+        }
+
     });
 
     /** Processes data received from Wix and updates the application state and UI */
     function populateDataFromWix(payload) {
-        if (!payload || typeof payload !== 'object') {
-            console.error("Invalid payload received in 'electionData' message.", payload);
-            return;
-        }
+        // Already checked payload exists and is object in the listener
         console.log("Processing data from Wix...");
         let uiNeedsUpdate = false; // Flag to check if any data actually changed
 
         // 1. Update Candidates
         if (Array.isArray(payload.candidates)) {
-            uiNeedsUpdate = true;
-            candidates = []; candidateDetails = {}; candidateLikes = {}; candidateImages = {}; // Reset
-            payload.candidates.forEach(c => {
-                if (c && c.name) { // Ensure name exists
-                    candidates.push(c.name);
-                    candidateImages[c.name] = c.imageUrl || 'https://placehold.co/80x80/cccccc/ffffff?text=N/A';
-                    candidateDetails[c.name] = { age: c.age ?? '?', zone: c.zone ?? '?' };
-                    candidateLikes[c.name] = c.likes ?? 0;
-                }
-            });
-            console.log(`Updated ${candidates.length} candidates from Wix.`);
-            // Re-populate lists only if candidate data actually changed significantly (optional optimization)
-            populateCandidateList(presidentListEl, candidates, true);
-            populateCandidateList(vicePresidentListEl, candidates, false);
+            // Basic check if data seems different (can be improved)
+            if (JSON.stringify(payload.candidates) !== JSON.stringify(candidates.map(name => ({ name, ...candidateDetails[name], likes: candidateLikes[name], imageUrl: candidateImages[name] })))) {
+                uiNeedsUpdate = true;
+                candidates = []; candidateDetails = {}; candidateLikes = {}; candidateImages = {}; // Reset
+                payload.candidates.forEach(c => {
+                    if (c && c.name) { // Ensure name exists
+                        candidates.push(c.name);
+                        candidateImages[c.name] = c.imageUrl || 'https://placehold.co/80x80/cccccc/ffffff?text=N/A';
+                        candidateDetails[c.name] = { age: c.age ?? '?', zone: c.zone ?? '?' };
+                        candidateLikes[c.name] = c.likes ?? 0;
+                    }
+                });
+                console.log(`Updated ${candidates.length} candidates from Wix.`);
+                populateCandidateList(presidentListEl, candidates, true);
+                populateCandidateList(vicePresidentListEl, candidates, false);
+            }
         }
 
         // 2. Update Combo Vote Counts
         if (Array.isArray(payload.combos)) {
-             uiNeedsUpdate = true;
-            votesData = {}; // Reset vote counts
-            payload.combos.forEach(c => {
+            const newVotesData = {};
+             payload.combos.forEach(c => {
                 if (c && c.president && c.vicePresident) { // Ensure combo is valid
                     const key = `${c.president} & ${c.vicePresident}`;
-                    votesData[key] = c.totalVotes ?? 0;
-                    // Update candidate images if provided in combo data (might be redundant if also in candidate data)
-                    // if (c.presidentImageUrl) candidateImages[c.president] = c.presidentImageUrl;
-                    // if (c.vicePresidentImageUrl) candidateImages[c.vicePresident] = c.vicePresidentImageUrl;
+                    newVotesData[key] = c.totalVotes ?? 0;
                 }
             });
-             console.log(`Updated ${Object.keys(votesData).length} vote combos from Wix.`);
+            // Check if votes data changed before updating state and flagging UI update
+            if (JSON.stringify(newVotesData) !== JSON.stringify(votesData)) {
+                uiNeedsUpdate = true;
+                votesData = newVotesData;
+                console.log(`Updated ${Object.keys(votesData).length} vote combos from Wix.`);
+            }
         }
 
         // 3. Update Comments (rebuild hierarchy)
         if (Array.isArray(payload.comments)) { // Assuming payload key is 'comments'
-             uiNeedsUpdate = true;
-            let allComments = [];
-            comboComments = {}; // Reset comments
-            payload.comments.forEach(comment => {
-                // Use _id from database, ensure comboKey exists
-                if (comment && comment._id && comment.comboKey) {
-                    allComments.push({
-                        id: comment._id, // Use the database ID
-                        comboKey: comment.comboKey,
-                        parentID: comment.parentId || 0, // Use parentId field from DB
-                        name: comment.name || "Anonymous",
-                        text: comment.text || comment.comment || "", // Allow 'comment' or 'text' field
-                        replies: [] // Initialize replies array
-                    });
-                }
-            });
+             // Simple check, can be improved for deep comparison
+             // This comparison is basic and might trigger updates unnecessarily if order changes
+             // A more robust check would involve comparing comment IDs and content.
+             // For now, let's assume if the array length or first/last element ID changes, we update.
+             const currentCommentIds = Object.values(comboComments).flat().map(c => c.id).sort();
+             const newCommentIds = payload.comments.map(c => c._id).sort();
+             if (JSON.stringify(currentCommentIds) !== JSON.stringify(newCommentIds)) {
 
-            // Rebuild hierarchy (same logic as readUserDataTable)
-            let commentsById = {};
-            allComments.forEach(comment => commentsById[comment.id] = comment);
-            allComments.forEach(comment => {
-                if (comment.parentID !== 0 && commentsById[comment.parentID]) {
-                    if (!commentsById[comment.parentID].replies) commentsById[comment.parentID].replies = [];
-                    commentsById[comment.parentID].replies.push(comment);
-                }
-            });
-            allComments.forEach(comment => {
-                if (comment.parentID === 0) {
-                    if (!comboComments[comment.comboKey]) comboComments[comment.comboKey] = [];
-                    comboComments[comment.comboKey].push(comment);
-                }
-            });
-             console.log("Updated comments structure from Wix data.");
+                 uiNeedsUpdate = true;
+                let allComments = [];
+                comboComments = {}; // Reset comments
+                payload.comments.forEach(comment => {
+                    if (comment && comment._id && comment.comboKey) {
+                        allComments.push({
+                            id: comment._id, comboKey: comment.comboKey,
+                            parentID: comment.parentId || 0, name: comment.name || "Anonymous",
+                            text: comment.text || comment.comment || "", replies: []
+                        });
+                    }
+                });
+
+                // Rebuild hierarchy
+                let commentsById = {};
+                allComments.forEach(comment => commentsById[comment.id] = comment);
+                allComments.forEach(comment => {
+                    if (comment.parentID !== 0 && commentsById[comment.parentID]) {
+                        if (!commentsById[comment.parentID].replies) commentsById[comment.parentID].replies = [];
+                        commentsById[comment.parentID].replies.push(comment);
+                    }
+                });
+                allComments.forEach(comment => {
+                    if (comment.parentID === 0) {
+                        if (!comboComments[comment.comboKey]) comboComments[comment.comboKey] = [];
+                        comboComments[comment.comboKey].push(comment);
+                    }
+                });
+                 console.log("Updated comments structure from Wix data.");
+             }
         }
 
         // 4. Update Map State Data (raw data for processing)
         if (Array.isArray(payload.mapStates)) {
-             uiNeedsUpdate = true;
-            mapStatesData = payload.mapStates; // Store the raw data
-             console.log(`Updated map data source with ${mapStatesData.length} state entries from Wix.`);
+            // Check if map data changed before updating
+            if (JSON.stringify(payload.mapStates) !== JSON.stringify(mapStatesData)) {
+                uiNeedsUpdate = true;
+                mapStatesData = payload.mapStates; // Store the raw data
+                console.log(`Updated map data source with ${mapStatesData.length} state entries from Wix.`);
+            }
         }
 
         // 5. Update Loyalists
         if (Array.isArray(payload.loyalists)) {
-             uiNeedsUpdate = true;
-            loyalists = {}; // Reset loyalists
-            payload.loyalists.forEach(l => {
+             const newLoyalists = {};
+             payload.loyalists.forEach(l => {
                 if (l && l.referralCode && l.combo) { // Require code and combo
-                    loyalists[l.referralCode.toUpperCase()] = { // Standardize code
-                        loyalistName: l.loyalistName || "Anonymous",
-                        city: l.city || "Unknown",
-                        combo: l.combo,
-                        supporters: l.supporters ?? 0,
-                        donation: l.donation ?? 0,
+                    newLoyalists[l.referralCode.toUpperCase()] = { // Standardize code
+                        loyalistName: l.loyalistName || "Anonymous", city: l.city || "Unknown", combo: l.combo,
+                        supporters: l.supporters ?? 0, donation: l.donation ?? 0,
                         comboImg1: l.comboImg1 || 'https://placehold.co/50x50/cccccc/ffffff?text=P',
                         comboImg2: l.comboImg2 || 'https://placehold.co/50x50/cccccc/ffffff?text=V'
                     };
                 }
             });
-            console.log(`Updated ${Object.keys(loyalists).length} loyalists from Wix.`);
+             // Check if loyalist data changed
+             if (JSON.stringify(newLoyalists) !== JSON.stringify(loyalists)) {
+                 uiNeedsUpdate = true;
+                 loyalists = newLoyalists;
+                 console.log(`Updated ${Object.keys(loyalists).length} loyalists from Wix.`);
+             }
         }
 
-        // Re-render UI components if any data was updated
+        // Re-render UI components ONLY if any data was actually updated
         if (uiNeedsUpdate) {
             console.log("Wix data processed, re-rendering UI components...");
             renderChart();
@@ -2135,9 +2258,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderComboComments();
             }
             updateProgress(); // Update vote button state based on selections
+            updateUITranslations(); // Ensure translations are correct after potential re-renders
             console.log("UI update complete.");
         } else {
-            console.log("No new data fields found in Wix message to process.");
+            console.log("No significant data changes found in Wix message to process.");
         }
     }
 
@@ -2146,11 +2270,11 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Initializing application...");
 
         // Attempt to read data from hidden tables as a fallback
-        let readFromTables = false;
-        if (!readFromTables) readFromTables = readCandidateTable();
-        if (!readFromTables) readFromTables = readComboTable();
-        if (!readFromTables) readFromTables = readUserDataTable();
-        if (!readFromTables) readFromTables = readLoyalistDataTable();
+        // This is useful if the Wix message doesn't arrive immediately
+        let readCandidates = readCandidateTable();
+        let readCombos = readComboTable();
+        let readComments = readUserDataTable();
+        let readLoyalists = readLoyalistDataTable();
 
         // Initial UI Population (might be overwritten by Wix data later)
         populateCandidateList(presidentListEl, candidates, true);
@@ -2158,7 +2282,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderChart();
         renderComboGrid();
         renderComboLoyalists();
-        initMap(); // Initialize map structure
+        initMap(); // Initialize map structure (will call renderMap inside)
         renderPieChart();
         setupEventListeners(); // Setup all event listeners
         updateProgress(); // Initial check for vote button state
@@ -2167,8 +2291,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log("Initialization complete. Waiting for potential data from Wix...");
 
-        // Optional: Send a message to Wix page requesting initial data
-        // window.parent.postMessage({ type: 'requestInitialData' }, '*');
+        // Optional: Send a message to Wix page requesting initial data immediately
+        // Useful if data isn't pushed automatically on load.
+        // window.parent.postMessage({ type: 'requestInitialData' }, '*'); // Use specific origin
     }
 
     // --- Run Initialization ---
