@@ -256,8 +256,8 @@ document.addEventListener('DOMContentLoaded', () => {
                      const textNode = Array.from(el.childNodes).find(node => node.nodeType === Node.TEXT_NODE);
                      if (textNode && textNode.textContent.trim() !== text) {
                          textNode.textContent = text + ' '; // Add space before code/span
-                     } else if (!textNode) {
-                         // Handle cases where text needs to be prepended if missing
+                     } else if (!textNode && el.textContent !== text) { // If no text node, set textContent directly
+                         el.textContent = text;
                      }
                  } else if (el.textContent !== text) {
                     el.textContent = text; // Safer default
@@ -270,9 +270,11 @@ document.addEventListener('DOMContentLoaded', () => {
             let tipKey = '';
             // Attempt to find a matching key in L10N based on ID or a specific data attribute
             if (el.id) {
-                tipKey = `tip${el.id.charAt(0).toUpperCase() + el.id.slice(1)}`; // e.g., tipMobileMenuBtn
+                // Construct a potential key like 'tipMobileMenuBtn'
+                tipKey = `tip${el.id.charAt(0).toUpperCase() + el.id.slice(1)}`;
             }
-             // Allow overriding with a specific data attribute if ID heuristic fails
+             // Allow overriding with a specific data attribute if ID heuristic fails or isn't specific enough
+             // Example: <span class="info-icon" data-tip-key="tipInfoIconReferral">
              if (!L10N[currentLang]?.[tipKey] && el.dataset.tipKey) {
                  tipKey = el.dataset.tipKey;
              }
@@ -284,12 +286,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const tipText = t(tipKey); // Get translation using the found key
 
             // Only update if a translation was found AND it's different from the current attribute
-            if (tipText && tipKey !== tipText && el.getAttribute('data-tip') !== tipText) {
+            // Also check that tipKey is not empty and is actually a key in the translations
+            if (tipKey && L10N[currentLang]?.[tipKey] && el.getAttribute('data-tip') !== tipText) {
                 el.setAttribute('data-tip', tipText);
-            } else if (!tipText && tipKey && el.getAttribute('data-tip')) {
-                 // If no translation found for current lang, maybe revert to default English or clear it?
-                 // For now, let's leave the existing attribute.
-                 // console.warn(`No translation found for tooltip key: ${tipKey}`);
+            } else if (!tipKey && el.dataset.tip) {
+                // If no key derived, try using the data-tip value itself as a key (less ideal)
+                const fallbackTipText = t(el.dataset.tip);
+                 if (fallbackTipText !== el.dataset.tip && el.getAttribute('data-tip') !== fallbackTipText) {
+                    el.setAttribute('data-tip', fallbackTipText);
+                 }
             }
         });
 
@@ -2040,9 +2045,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         switch (msg.type) {
             case "electionData":
-                // FIX: Check if payload exists and is an object before processing
-                if (msg.payload && typeof msg.payload === 'object') {
-                    populateDataFromWix(msg.payload);
+                // FIX: Pass the entire msg object, as data is not nested under 'payload' based on logs
+                if (msg && typeof msg === 'object' && msg.candidates && msg.combos) { // Check essential properties exist directly on msg
+                    populateDataFromWix(msg); // Pass the whole msg object
                 } else {
                     console.error(t('errorInvalidPayload', { type: msg.type }), msg);
                 }
@@ -2129,18 +2134,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /** Processes data received from Wix and updates the application state and UI */
-    function populateDataFromWix(payload) {
-        // Already checked payload exists and is object in the listener
+    function populateDataFromWix(data) { // Changed parameter name from payload to data
+        // Already checked data exists and is object in the listener
         console.log("Processing data from Wix...");
         let uiNeedsUpdate = false; // Flag to check if any data actually changed
 
-        // 1. Update Candidates
-        if (Array.isArray(payload.candidates)) {
+        // 1. Update Candidates - Access data.candidates directly
+        if (Array.isArray(data.candidates)) {
             // Basic check if data seems different (can be improved)
-            if (JSON.stringify(payload.candidates) !== JSON.stringify(candidates.map(name => ({ name, ...candidateDetails[name], likes: candidateLikes[name], imageUrl: candidateImages[name] })))) {
+            if (JSON.stringify(data.candidates) !== JSON.stringify(candidates.map(name => ({ name, ...candidateDetails[name], likes: candidateLikes[name], imageUrl: candidateImages[name] })))) {
                 uiNeedsUpdate = true;
                 candidates = []; candidateDetails = {}; candidateLikes = {}; candidateImages = {}; // Reset
-                payload.candidates.forEach(c => {
+                data.candidates.forEach(c => {
                     if (c && c.name) { // Ensure name exists
                         candidates.push(c.name);
                         candidateImages[c.name] = c.imageUrl || 'https://placehold.co/80x80/cccccc/ffffff?text=N/A';
@@ -2154,10 +2159,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // 2. Update Combo Vote Counts
-        if (Array.isArray(payload.combos)) {
+        // 2. Update Combo Vote Counts - Access data.combos directly
+        if (Array.isArray(data.combos)) {
             const newVotesData = {};
-             payload.combos.forEach(c => {
+             data.combos.forEach(c => {
                 if (c && c.president && c.vicePresident) { // Ensure combo is valid
                     const key = `${c.president} & ${c.vicePresident}`;
                     newVotesData[key] = c.totalVotes ?? 0;
@@ -2171,20 +2176,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // 3. Update Comments (rebuild hierarchy)
-        if (Array.isArray(payload.comments)) { // Assuming payload key is 'comments'
-             // Simple check, can be improved for deep comparison
-             // This comparison is basic and might trigger updates unnecessarily if order changes
-             // A more robust check would involve comparing comment IDs and content.
-             // For now, let's assume if the array length or first/last element ID changes, we update.
+        // 3. Update Comments - Access data.users directly (based on log)
+        const commentDataArray = data.users; // Use the key from the log
+        if (Array.isArray(commentDataArray)) {
              const currentCommentIds = Object.values(comboComments).flat().map(c => c.id).sort();
-             const newCommentIds = payload.comments.map(c => c._id).sort();
+             const newCommentIds = commentDataArray.map(c => c._id).sort();
              if (JSON.stringify(currentCommentIds) !== JSON.stringify(newCommentIds)) {
 
                  uiNeedsUpdate = true;
                 let allComments = [];
                 comboComments = {}; // Reset comments
-                payload.comments.forEach(comment => {
+                commentDataArray.forEach(comment => { // Use the correct array
                     if (comment && comment._id && comment.comboKey) {
                         allComments.push({
                             id: comment._id, comboKey: comment.comboKey,
@@ -2213,20 +2215,20 @@ document.addEventListener('DOMContentLoaded', () => {
              }
         }
 
-        // 4. Update Map State Data (raw data for processing)
-        if (Array.isArray(payload.mapStates)) {
+        // 4. Update Map State Data - Access data.mapStates directly
+        if (Array.isArray(data.mapStates)) {
             // Check if map data changed before updating
-            if (JSON.stringify(payload.mapStates) !== JSON.stringify(mapStatesData)) {
+            if (JSON.stringify(data.mapStates) !== JSON.stringify(mapStatesData)) {
                 uiNeedsUpdate = true;
-                mapStatesData = payload.mapStates; // Store the raw data
+                mapStatesData = data.mapStates; // Store the raw data
                 console.log(`Updated map data source with ${mapStatesData.length} state entries from Wix.`);
             }
         }
 
-        // 5. Update Loyalists
-        if (Array.isArray(payload.loyalists)) {
+        // 5. Update Loyalists - Access data.loyalists directly
+        if (Array.isArray(data.loyalists)) {
              const newLoyalists = {};
-             payload.loyalists.forEach(l => {
+             data.loyalists.forEach(l => { // Access directly from data
                 if (l && l.referralCode && l.combo) { // Require code and combo
                     newLoyalists[l.referralCode.toUpperCase()] = { // Standardize code
                         loyalistName: l.loyalistName || "Anonymous", city: l.city || "Unknown", combo: l.combo,
@@ -2293,7 +2295,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Optional: Send a message to Wix page requesting initial data immediately
         // Useful if data isn't pushed automatically on load.
-        window.parent.postMessage({ type: 'requestInitialData' }, '*'); // Use specific origin
+        // window.parent.postMessage({ type: 'requestInitialData' }, '*'); // Use specific origin
     }
 
     // --- Run Initialization ---
