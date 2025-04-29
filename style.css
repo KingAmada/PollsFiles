@@ -1,929 +1,1866 @@
+/* --- BASIC RESET & BASE STYLES --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+html {
+  font-size: 16px; /* Base font size */
+  scroll-behavior: smooth;
+}
 
-    /* --- BASIC RESET & BASE STYLES --- */
+body {
+  font-family: "Montserrat", sans-serif;
+  background-color: #f0f1f2; /* Light grey background */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  color: #333; /* Default text color */
+  position: relative;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  font-size: 1rem; /* Consistent body font size */
+}
 
-    * { margin:0; padding:0; box-sizing:border-box; }
+/* Faint background image */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* Cover the entire body */
+  background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Coat_of_arms_of_Nigeria.svg/1200px-Coat_of_arms_of_Nigeria.svg.png") no-repeat center center;
+  background-size: clamp(200px, 50vmin, 300px); /* Responsive size */
+  opacity: 0.05; /* Very faint */
+  z-index: 0; /* Behind content */
+  pointer-events: none; /* Allow clicks through */
+}
 
-    html { font-size:16px; scroll-behavior:smooth; }
+/* --- LAYOUT & CONTAINER --- */
+.container {
+  width: 100%;
+  max-width: 1400px; /* Max width for large screens */
+  margin: 50px auto 0; /* Top margin for desktop, centered */
+  position: relative;
+  z-index: 1; /* Above the background image */
+  background: rgba(255, 255, 255, 0.97); /* Slightly transparent white */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  padding: 1.5rem; /* Padding inside container */
+  animation: fadeIn 1s ease-out; /* Fade-in animation */
+}
 
-    body {
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-      font-family:"Montserrat",sans-serif;
+/* --- HEADER --- */
+.header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
 
-      background:#f0f1f2; min-height:100vh;
+.header img {
+  max-width: 80px; /* Adjust size as needed */
+  display: block;
+  margin: 0.5rem auto;
+}
 
-      display:flex; flex-direction:column; align-items:center;
+.main-heading {
+  font-size: clamp(1.8rem, 5vw, 2.4rem); /* Responsive heading size */
+  font-weight: 700; /* Bold */
+  margin-bottom: 0.2rem;
+  color: #1a1a1a; /* Darker heading color */
+}
 
-      padding:1rem; color:#333; position:relative; overflow-x:hidden;
+.sub-heading {
+  font-size: 0.95rem;
+  color: #555; /* Grey text */
+  max-width: 650px; /* Limit width */
+  margin: 0.5rem auto 1rem;
+  line-height: 1.5; /* Improve readability */
+}
 
-      font-size:1rem;
+/* --- DIVIDER --- */
+.divider {
+  width: 80px; /* Shorter divider */
+  height: 4px; /* Thicker */
+  background: linear-gradient(90deg, #008000, #00c851); /* Green gradient */
+  margin: 2rem auto; /* More spacing */
+  border-radius: 2px;
+}
 
-    }
+/* --- SECTION SUBTITLES --- */
+.section-subtitle {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+  margin-top: -0.5rem; /* Pull up slightly below main title */
+  margin-bottom: 1.5rem; /* More space below */
+  font-style: italic;
+}
 
-    body::before {
+/* --- Referral Info Box --- */
+.referral-info {
+  background-color: #e0f2fe; /* Light blue background */
+  color: #075985; /* Dark blue text */
+  border: 1px solid #bae6fd; /* Lighter blue border */
+  border-left: 5px solid #0ea5e9; /* Accent border */
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  margin: 1.5rem auto;
+  max-width: 95%;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(14, 165, 233, 0.1);
+}
 
-      content:""; position:absolute; inset:0;
+.referral-info strong {
+  color: #0369a1; /* Slightly darker blue for emphasis */
+  font-weight: 700;
+}
 
-      background:url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Coat_of_arms_of_Nigeria.svg/1200px-Coat_of_arms_of_Nigeria.svg.png") no-repeat center center;
+.referral-info button#getReferralCodeBtn {
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(145deg, #0ea5e9, #0284c7); /* Blue gradient */
+  border: none;
+  border-radius: 50px; /* Pill shape */
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(2, 132, 199, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+}
 
-      background-size:clamp(200px,50vmin,300px); opacity:0.05; z-index:0;
+.referral-info button#getReferralCodeBtn:hover {
+  background: linear-gradient(145deg, #38bdf8, #0ea5e9); /* Lighter blue on hover */
+  box-shadow: 0 5px 12px rgba(2, 132, 199, 0.4);
+  transform: translateY(-2px); /* Slight lift */
+}
 
-    }
+.referral-info button#getReferralCodeBtn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(2, 132, 199, 0.3);
+}
 
+/* --- MOBILE NAVIGATION --- */
+#mobileMenuBtn {
+  display: none; /* Hidden by default, shown in media query */
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1002; /* Above nav panel */
+  background: rgba(0, 128, 0, 0.85); /* Semi-transparent green */
+  border: none;
+  border-radius: 50%;
+  padding: 0.6rem; /* Slightly larger */
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.2s ease;
+}
+#mobileMenuBtn:hover {
+  background: rgba(0, 100, 0, 0.9); /* Darker on hover */
+}
+
+#mobileMenuBtn svg {
+  width: 24px;
+  height: 24px;
+  stroke: white;
+  stroke-width: 2;
+  display: block; /* Prevents extra space */
+}
+
+#mobileNavPanel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px; /* Wider panel */
+  height: 100%;
+  background: #2c2c2c; /* Dark grey background */
+  color: white;
+  padding: 70px 1.5rem 1.5rem; /* More padding */
+  transform: translateX(-100%); /* Off-screen initially */
+  transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1); /* Smoother transition */
+  z-index: 1001; /* Below menu button */
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.4);
+  overflow-y: auto; /* Scroll if content overflows */
+}
+
+#mobileNavPanel.active {
+  transform: translateX(0); /* Slide in */
+}
+
+#mobileNavPanel nav ul {
+  list-style: none;
+}
+
+#mobileNavPanel nav li {
+  margin-bottom: 1.2rem; /* More spacing */
+}
+
+#mobileNavPanel nav a {
+  color: #e0e0e0; /* Lighter grey text */
+  text-decoration: none;
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding: 0.6rem 0;
+  display: block;
+  transition: color 0.2s ease, transform 0.2s ease;
+  border-bottom: 1px solid #444; /* Subtle separator */
+}
+#mobileNavPanel nav a:hover {
+  color: #00e058; /* Bright green hover */
+  transform: translateX(5px); /* Slight indent on hover */
+}
+#mobileNavPanel nav li:last-child a {
+    border-bottom: none; /* Remove border from last item */
+}
+
+.menu-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem; /* Larger close button */
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.2rem;
+  line-height: 1;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.menu-close-btn:hover {
+    color: #ff4d4d; /* Reddish hover */
+    transform: rotate(90deg);
+}
+
+/* Show mobile menu button on smaller screens */
+@media (max-width: 991px) {
+  #mobileMenuBtn {
+    display: block;
+  }
+  .container {
+    margin-top: 60px; /* Add space below fixed menu button */
+  }
+  .language-switcher {
+      left: 70px; /* Move language switcher next to menu */
+      top: 18px;
+  }
+}
+@media (max-width: 767px) {
     .container {
+        margin-top: 70px; /* Slightly more space on smallest screens */
+        padding: 1rem; /* Less padding on mobile */
+    }
+    .language-switcher {
+        left: 65px;
+        top: 18px;
+    }
+}
+
+
+/* --- FLOATING & OVERLAY ELEMENTS --- */
+
+/* Countdown Timer */
+#countdownTimer {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: #d32f2f; /* Material Design red */
+  color: #fff;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 50px; /* Pill shape */
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+  font-size: 0.85rem;
+  text-align: center;
+  animation: pulseTimer 2s infinite ease-in-out;
+}
+@keyframes pulseTimer {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Lightbox Overlays (General) */
+.wiki-lightbox-overlay,
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75); /* Darker overlay */
+  display: none; /* Hidden by default */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 1rem;
+  animation: fadeInOverlay 0.3s ease; /* Fade in overlay */
+}
+@keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Lightbox Content Box (General) */
+.wiki-lightbox-content,
+.lightbox-content {
+  position: relative;
+  width: 95%;
+  max-width: 550px; /* Slightly wider */
+  max-height: 90vh; /* Limit height */
+  overflow-y: auto; /* Scroll if needed */
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+  padding: 2rem; /* More padding */
+  animation: slideInModal 0.4s cubic-bezier(0.25, 0.1, 0.25, 1); /* Slide in content */
+}
+@keyframes slideInModal {
+    from { opacity: 0; transform: translateY(-30px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Specific Wiki Lightbox Content */
+.wiki-lightbox-content {
+  height: 80vh; /* Fixed height for iframe */
+  padding: 0; /* Remove padding for iframe */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Lightbox Close Button (General) */
+.wiki-lightbox-close,
+.lightbox-close {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #555;
+  font-weight: bold;
+  z-index: 10; /* Above content */
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.wiki-lightbox-close:hover,
+.lightbox-close:hover {
+  color: #d32f2f; /* Red on hover */
+  transform: rotate(90deg);
+}
+
+/* Wiki Iframe */
+#wikiIframe {
+  width: 100%;
+  height: 100%; /* Fill the container */
+  border: none;
+  border-radius: 0 0 10px 10px; /* Match bottom corners */
+  flex-grow: 1; /* Take available space */
+}
+
+/* --- CANDIDATE SELECTION --- */
+.selection-section {
+  display: flex;
+  flex-direction: column; /* Stack on mobile */
+  gap: 1.5rem; /* Space between boxes */
+  justify-content: center;
+  margin-bottom: 2rem; /* More space below */
+  animation: slideUp 0.8s ease-out; /* Slide up animation */
+}
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Switch to row layout on larger screens */
+@media (min-width: 768px) {
+  .selection-section {
+    flex-direction: row;
+  }
+}
+
+.selection-box {
+  flex: 1 1 auto; /* Allow boxes to grow/shrink */
+  background: #fdfdfd; /* Slightly off-white */
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  transition: box-shadow 0.3s ease;
+}
+.selection-box:hover {
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+}
+
+.selection-box h3 { /* Changed from h2 */
+  text-align: center;
+  margin-bottom: 0.5rem; /* Less margin above subtitle */
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.candidate-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); /* Responsive columns */
+  grid-auto-rows: auto;
+  gap: 1rem; /* Space between items */
+  justify-content: center;
+}
+
+.candidate-item {
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.75rem 0.5rem; /* Adjust padding */
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; /* Pushes like button down */
+  min-height: 190px; /* Ensure consistent height */
+  position: relative;
+  overflow: hidden; /* Needed for pseudo-elements */
+  border: 1px solid #eee; /* Subtle border */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Green side borders (subtle indicator) */
+.candidate-item::before,
+.candidate-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 5px; /* Thicker border */
+  background: linear-gradient(to bottom, #00c851, #00a040); /* Green gradient */
+  z-index: 0;
+  opacity: 0; /* Hidden initially */
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.candidate-item::before { left: 0; border-radius: 8px 0 0 8px; }
+.candidate-item::after { right: 0; border-radius: 0 8px 8px 0; }
+
+.candidate-item > * {
+  position: relative; /* Ensure content is above pseudo-elements */
+  z-index: 1;
+}
+
+/* Hover effect */
+.candidate-item:hover {
+  transform: translateY(-4px) scale(1.03); /* Lift and slightly enlarge */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  border-color: #00c851; /* Green border on hover */
+}
+.candidate-item:hover::before,
+.candidate-item:hover::after {
+  opacity: 1; /* Show side borders on hover */
+}
+
+/* Selected state */
+.candidate-item.selected {
+  background: linear-gradient(145deg, #00c851, #008000); /* Green gradient background */
+  color: #fff !important; /* White text */
+  font-weight: bold;
+  box-shadow: 0 5px 18px rgba(0, 128, 0, 0.3); /* Green shadow */
+  transform: scale(1.05); /* Slightly larger when selected */
+  border-color: transparent; /* Hide border */
+  animation: popSelected 0.3s ease-out forwards; /* Pop animation */
+}
+@keyframes popSelected {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1.05); }
+}
+
+.candidate-item.selected::before,
+.candidate-item.selected::after {
+  display: none; /* Hide side borders when selected */
+}
+
+/* Style elements inside selected card */
+.candidate-item.selected .candidate-name,
+.candidate-item.selected .candidate-details,
+.candidate-item.selected .like-container,
+.candidate-item.selected .like-count {
+  color: #fff !important; /* Ensure white text */
+}
+
+.candidate-item.selected .candidate-photo {
+  border: 3px solid #fff; /* White border for selected photo */
+}
+
+.candidate-item.selected .like-btn {
+  color: #ffdddd !important; /* Lighter red for heart */
+}
+
+.candidate-item.selected .like-container {
+  background: rgba(255, 255, 255, 0.15); /* Slightly transparent white background */
+}
+
+/* Candidate Photo */
+.candidate-photo {
+  width: clamp(65px, 15vw, 85px); /* Slightly larger */
+  height: clamp(65px, 15vw, 85px);
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+  object-fit: cover; /* Crop image nicely */
+  border: 3px solid #ddd; /* Thicker border */
+  transition: border-color 0.2s ease;
+  background-color: #eee; /* Placeholder background */
+}
+
+/* Candidate Name */
+.candidate-name {
+  font-size: 0.85rem; /* Slightly larger */
+  margin-bottom: 0.2rem;
+  font-weight: 600;
+  color: #333;
+  word-break: break-word; /* Prevent long names overflowing */
+  line-height: 1.3;
+}
+
+/* Candidate Details (Age, Zone) */
+.candidate-details {
+  font-size: 0.75rem;
+  color: #777;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+
+/* Like Button Container */
+.like-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem; /* More space */
+  font-size: 0.8rem;
+  background: #f5f5f5; /* Light grey background */
+  border-radius: 15px; /* Rounded pill */
+  padding: 0.4rem 0.8rem;
+  margin-top: auto; /* Pushes to bottom */
+  transition: background-color 0.2s ease;
+}
+.candidate-item:hover .like-container {
+    background-color: #e0e0e0; /* Darker grey on item hover */
+}
+
+/* Like Button (Heart) */
+.like-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: #e53935; /* Material Design red */
+  font-size: 1.2rem; /* Larger heart */
+  transition: transform 0.2s ease, color 0.2s ease;
+  padding: 2px;
+  position: relative;
+  z-index: 1;
+  line-height: 1; /* Prevent extra spacing */
+}
+.like-btn:hover {
+  transform: scale(1.25); /* Larger scale on hover */
+  color: #c62828; /* Darker red */
+}
+.like-btn:active {
+    transform: scale(1.1); /* Slight shrink on click */
+}
+.like-btn:disabled {
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+/* Like Count Number */
+.like-count {
+  color: #555;
+  font-weight: 600;
+}
+
+/* --- HEART BLAST ANIMATION --- */
+.heart-particle {
+  position: fixed; /* Position relative to viewport */
+  left: 0;
+  top: 0;
+  color: #ff4757; /* Bright red */
+  font-size: 1.5rem;
+  pointer-events: none; /* Click through */
+  user-select: none; /* Non-selectable */
+  z-index: 99999; /* Above everything */
+  opacity: 0; /* Start invisible */
+  /* Animation defined below */
+  animation: heartBlastAnimation 1.2s ease-out forwards;
+}
+
+@keyframes heartBlastAnimation {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.5); /* Start small at click point */
+  }
+  100% {
+    opacity: 0;
+    /* Use CSS variables set by JS for random direction */
+    transform: translate(var(--tx, 0), var(--ty, -80px)) scale(1.2); /* Fly up and fade out */
+  }
+}
+
+/* --- VOTE SECTION --- */
+.vote-section {
+  display: flex;
+  flex-direction: column; /* Stack form and button */
+  align-items: center; /* Center items */
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-top: 1px solid #e0e0e0; /* Lighter separator */
+  padding-top: 2rem; /* More space above */
+  flex-wrap: wrap; /* Allow wrapping if needed */
+}
+
+/* Row layout for form and button on larger screens */
+@media (min-width: 992px) {
+  .vote-section {
+    flex-direction: row;
+    align-items: flex-start; /* Align tops */
+    gap: 1.5rem;
+  }
+}
+
+.vote-form {
+  display: flex;
+  flex-wrap: wrap; /* Allow inputs to wrap */
+  justify-content: center;
+  align-items: center; /* Align items vertically */
+  gap: 0.75rem 1rem; /* Row and column gap */
+  background: #fafafa;
+  padding: 1.5rem; /* More padding */
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 850px; /* Wider form */
+}
+
+.vote-form label {
+  font-size: 0.85rem;
+  margin-right: -0.5rem; /* Pull closer to input */
+  color: #555;
+  font-weight: 600;
+  flex-basis: 100px; /* Give labels some base width */
+  text-align: right;
+  padding-right: 0.5rem;
+}
+
+.vote-form select,
+.vote-form input[type="text"],
+.vote-form input[type="tel"],
+.vote-form input[type="number"] {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem; /* More padding */
+  font-size: 0.9rem;
+  flex: 1 1 180px; /* Allow inputs to grow, base width 180px */
+  min-width: 140px; /* Minimum width */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.vote-form input[type="number"] { /* Specific for age */
+    -moz-appearance: textfield; /* Firefox */
+}
+.vote-form input[type="number"]::-webkit-outer-spin-button,
+.vote-form input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* Safari/Chrome */
+    margin: 0;
+}
+
+
+/* Focus styles for inputs */
+.vote-form select:focus,
+.vote-form input:focus {
+  outline: none;
+  border-color: #008000; /* Green border on focus */
+  box-shadow: 0 0 0 3px rgba(0, 128, 0, 0.2); /* Green glow */
+}
+
+/* Specific input widths */
+#voterAge {
+  flex-basis: 80px;
+  min-width: 60px;
+}
+#voterReferral {
+  flex-basis: 130px;
+}
+
+/* Security Info Text */
+.security-info {
+    font-size: 0.8rem;
+    color: #667;
+    text-align: center;
+    margin: 0.5rem 0;
+    font-style: italic;
+    width: 100%; /* Span full width in column layout */
+    flex-basis: 100%; /* Ensure it takes full width in flex row too */
+}
+.security-info svg { /* Style if using an icon */
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+    margin-right: 3px;
+    fill: #667;
+}
+
+/* VOTE BUTTON */
+.vote-button {
+  position: relative; /* For overlay and text */
+  width: 110px; /* Larger button */
+  height: 110px;
+  border-radius: 50%; /* Circular */
+  border: none;
+  background: #ccc; /* Default disabled background */
+  font-size: 1.1rem; /* Larger text */
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  overflow: hidden; /* Clip the fill overlay */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  margin-top: 0.5rem;
+  display: flex; /* Center content */
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .vote-button {
+    margin-top: 0; /* Align with form inputs */
+  }
+}
+
+.vote-button:disabled {
+  cursor: not-allowed;
+  background-color: #bdbdbd; /* Grey when disabled */
+  box-shadow: none;
+}
+
+/* Fill Overlay for Progress */
+.vote-button .fill-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0%; /* Controlled by JS */
+  background: linear-gradient(to right, #00c851, #008000); /* Green gradient */
+  transition: width 0.4s ease-in-out;
+  z-index: 1; /* Below text */
+  opacity: 0.7; /* Slightly transparent */
+}
+
+/* Vote Button Text */
+.vote-button .vote-text {
+  position: relative;
+  z-index: 2; /* Above overlay */
+  transition: opacity 0.2s ease;
+}
+
+/* Bounce animation when ready to vote */
+.vote-button.bounce:not(:disabled):not(.loading):not(.success) {
+  animation: bounce 1.2s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.05); }
+}
+
+/* Pulse animation when enabled */
+.vote-button:not(:disabled):not(.loading):not(.success) {
+   animation: pulseGlowVote 2s infinite ease-in-out;
+   background: linear-gradient(145deg, #00c851, #008000); /* Active green */
+   box-shadow: 0 4px 12px rgba(0, 128, 0, 0.3);
+}
+@keyframes pulseGlowVote {
+  0%, 100% { box-shadow: 0 4px 12px rgba(0, 128, 0, 0.3); }
+  50% { box-shadow: 0 6px 18px rgba(0, 128, 0, 0.5); }
+}
+.vote-button:not(:disabled):not(.loading):not(.success):hover {
+    animation-play-state: paused; /* Pause glow on hover */
+    background: linear-gradient(145deg, #00e058, #009000); /* Brighter green */
+    box-shadow: 0 6px 18px rgba(0, 128, 0, 0.4);
+    transform: scale(1.03);
+}
+.vote-button:not(:disabled):not(.loading):not(.success):active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(0, 128, 0, 0.3);
+}
+
+
+/* Loading Spinner */
+.button-loader {
+  display: none; /* Hidden by default */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 4px solid rgba(255, 255, 255, 0.3); /* Thicker border */
+  border-radius: 50%;
+  border-top-color: #fff; /* Spinner color */
+  width: 30px; /* Larger spinner for vote button */
+  height: 30px;
+  animation: spin 1s linear infinite;
+  z-index: 3; /* Above text */
+}
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Loading state for buttons */
+.loading .btn-text, /* Generic buttons */
+.vote-button.loading .vote-text /* Vote button */ {
+  opacity: 0;
+  visibility: hidden; /* Hide text */
+}
+
+.loading .button-loader {
+  display: block; /* Show spinner */
+}
+
+.loading {
+  pointer-events: none; /* Disable clicks during load */
+}
+
+/* Success Checkmark */
+.success-checkmark {
+    display: none; /* Hidden initially */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0); /* Start small */
+    font-size: 3rem; /* Large checkmark */
+    color: #fff;
+    z-index: 3; /* Above spinner */
+    animation: checkmarkAnim 0.5s 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* Pop animation */
+}
+
+.vote-button.success .success-checkmark {
+    display: block; /* Show checkmark */
+}
+.vote-button.success .vote-text,
+.vote-button.success .button-loader,
+.vote-button.success .fill-overlay {
+    display: none; /* Hide everything else */
+    opacity: 0;
+}
+.vote-button.success {
+    background-color: #4CAF50; /* Success green */
+    pointer-events: none; /* Disable after success */
+    animation: none; /* Stop pulsing/bouncing */
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+@keyframes checkmarkAnim {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+    70% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+/* Vote Confirmation Message */
+.vote-confirmation-message {
+    display: none; /* Hidden initially */
+    margin-top: 1rem;
+    padding: 1rem 1.5rem;
+    background-color: #e8f5e9; /* Light green background */
+    border: 1px solid #c8e6c9;
+    border-left: 6px solid #4CAF50; /* Green accent border */
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #2e7d32; /* Dark green text */
+    animation: fadeInSimple 0.5s ease;
+    width: 100%;
+    max-width: 600px; /* Limit width */
+}
+.vote-confirmation-message strong { /* Title */
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+.vote-confirmation-message .confirmation-details { /* Combo name */
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    color: #388e3c;
+}
+.vote-confirmation-message .vote-hash-display { /* Hash area */
+    display: block;
+    font-size: 0.8rem;
+    color: #555;
+    font-family: 'Courier New', Courier, monospace; /* Monospace for hash */
+    margin-top: 0.5rem;
+    word-break: break-all; /* Wrap long hash */
+    background-color: #f0f0f0;
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+}
+.vote-confirmation-message .vote-hash-display code { /* The hash itself */
+    font-weight: bold;
+    color: #333;
+}
+@keyframes fadeInSimple {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Legend Text */
+.legend {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.5rem;
+  text-align: center;
+  width: 100%;
+}
+
+/* --- RESULTS SECTION (Charts, Combos) --- */
+.results-section {
+  display: flex;
+  flex-direction: column; /* Stack on mobile */
+  gap: 1.5rem;
+  width: 100%;
+  margin-top: 2rem; /* More space above */
+}
+
+/* Row layout on larger screens */
+@media (min-width: 992px) {
+  .results-section {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start; /* Align tops */
+  }
+}
+
+/* General card styling for results */
+.chart,
+.voted-combos,
+.extra-chart-container {
+  flex: 1 1 100%; /* Full width on mobile */
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  position: relative; /* For potential absolute elements */
+  min-width: 0; /* Prevent flex overflow issues */
+}
+
+/* Specific widths on larger screens */
+@media (min-width: 992px) {
+  .chart,
+  .voted-combos {
+    flex-basis: 48%; /* Roughly half width */
+  }
+  .extra-chart-container {
+    flex-basis: 100%; /* Full width for map/pie containers */
+  }
+}
+
+/* Titles within result cards */
+.chart h3, /* Changed from h2 */
+.voted-combos h3, /* Changed from h2 */
+.extra-chart-container h3 {
+  text-align: center;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem; /* Less margin before subtitle */
+}
+
+/* Bar Chart Styles */
+#chartBars {
+  max-height: 450px; /* Limit height */
+  overflow-y: auto; /* Add scroll if needed */
+  padding-right: 5px; /* Space for scrollbar */
+}
+
+.chart-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem; /* More space between bars */
+  justify-content: flex-start;
+  gap: 0.75rem; /* Space between label and bar */
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+  transition: background-color 0.2s ease;
+  padding: 0.3rem 0; /* Add slight vertical padding */
+  border-radius: 4px;
+}
+.chart-bar:hover {
+    background-color: #f8f9fa; /* Highlight on hover */
+}
+
+.bar-label {
+  flex-basis: 180px; /* Base width for label */
+  flex-grow: 1; /* Allow label to grow */
+  font-size: 0.85rem;
+  font-weight: 600; /* Bolder label */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add '...' if too long */
+  color: #444;
+}
+.chart-bar:hover .bar-label {
+    color: #006400; /* Green text on hover */
+}
+
+.bar-count-label { /* The (123) part */
+  font-size: 0.75rem;
+  color: #777;
+  margin-left: 8px;
+  font-weight: normal;
+}
+
+.bar-container { /* The grey background of the bar */
+  flex-basis: 200px; /* Base width for bar */
+  flex-grow: 3; /* Allow bar to grow more */
+  background: #e0e0e0; /* Lighter grey */
+  height: 16px; /* Thicker bar */
+  border-radius: 8px; /* Rounded bar */
+  overflow: hidden; /* Clip the fill */
+  position: relative;
+}
+
+.bar-fill { /* The green fill */
+  height: 100%;
+  transition: width 0.6s cubic-bezier(0.25, 0.1, 0.25, 1); /* Smoother transition */
+  background: linear-gradient(to right, #2ecc71, #27ae60); /* Brighter green gradient */
+  border-radius: 8px;
+}
+.chart-bar:hover .bar-fill {
+  background: linear-gradient(to right, #58d68d, #2ecc71); /* Lighter green on hover */
+}
+
+/* --- COMBO GRID --- */
+.combo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Wider cards */
+  gap: 1.2rem; /* More space */
+  margin-bottom: 1rem;
+}
+
+.combo-card {
+  background: #fdfdfd;
+  border-radius: 10px; /* More rounded */
+  padding: 1rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 200px; /* Taller cards */
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: 1px solid #eee;
+}
+
+.combo-card:hover {
+  transform: translateY(-5px) scale(1.02); /* More lift */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  border-color: #ccc;
+}
+
+/* Share Button */
+.share-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  cursor: pointer;
+  color: #008000; /* Green icon */
+  font-size: 1.1rem;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  z-index: 2; /* Above images */
+}
+.share-btn:hover {
+  transform: scale(1.2);
+  background-color: rgba(0, 128, 0, 0.1); /* Greenish background on hover */
+}
+
+/* Combo Images */
+.combo-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem; /* Space between images */
+  margin-bottom: 0.75rem;
+}
+
+.combo-img {
+  width: clamp(50px, 12vw, 60px); /* Consistent size */
+  height: clamp(50px, 12vw, 60px);
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc; /* Thicker border */
+  background-color: #eee; /* Placeholder bg */
+}
+
+/* Combo Title */
+.combo-title {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 0.75rem;
+  word-break: break-word;
+  flex-grow: 1; /* Take available space */
+  line-height: 1.4;
+}
+
+/* Combo Stats (Votes, Comments) */
+.combo-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem; /* More space */
+  margin-top: auto; /* Push to bottom */
+  font-size: 0.85rem;
+  color: #555;
+  flex-wrap: wrap; /* Allow wrapping */
+  padding-top: 0.5rem;
+  border-top: 1px solid #eee; /* Separator */
+}
+
+.vote-heart, .comment-icon {
+  font-weight: bold;
+  display: inline-flex; /* Align icon and text */
+  align-items: center;
+  gap: 0.3rem;
+}
+.vote-heart { color: #e53935; } /* Red */
+.comment-icon { color: #1E88E5; } /* Blue */
+
+/* --- MAP & PIE CHART SECTIONS --- */
+.map-heading, /* Shared styles for map/pie titles */
+.extra-chart-container h3 {
+  text-align: center;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem; /* Less margin before subtitle */
+  font-size: 1.3rem; /* Larger title */
+  font-weight: 700;
+  color: #333;
+}
+
+#nigeriaMap {
+  width: 100%;
+  height: 400px; /* Default height */
+  max-height: 65vh; /* Limit viewport height usage */
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Clip map */
+  background: #e9e9e9; /* Placeholder background */
+  margin-bottom: 1.5rem; /* Space below map */
+}
+@media (min-width: 768px) {
+  #nigeriaMap {
+    height: 550px; /* Taller on larger screens */
+  }
+}
+
+#popularityPie {
+  width: 100%;
+  height: 400px; /* Default height */
+  max-height: 55vh; /* Limit viewport height */
+}
+
+/* --- LOYALIST (INFLUENCER) SECTION --- */
+/* Container for each combo's loyalists */
+.loyalist-combo-wrap {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+  border: 1px solid #eee;
+}
+
+/* Title for the combo (e.g., "Bola Tinubu & Kashim Shettima") */
+.loyalist-combo-title {
+  font-size: 1.1rem; /* Larger title */
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+/* Flex container for images (left) and influencers (right) */
+.loyalist-flex {
+  display: flex;
+  gap: 1.5rem; /* More space between columns */
+  align-items: flex-start; /* Align tops */
+}
+
+/* Left column: Images */
+.loyalist-images-col {
+  display: flex;
+  flex-direction: column; /* Stack images */
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 60px; /* Ensure space for images */
+  flex-shrink: 0; /* Don't shrink image column */
+}
+
+/* Individual candidate images */
+.loyalist-square-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px; /* Rounded square */
+  object-fit: cover;
+  border: 2px solid #ccc;
+  background-color: #eee; /* Placeholder bg */
+}
+
+/* Right column: List of influencers */
+.loyalist-influencers-col {
+  flex: 1; /* Take remaining space */
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem; /* Space between influencer rows */
+}
+
+/* Each influencer row */
+.loyalist-row {
+  display: flex;
+  align-items: flex-start; /* Align icon and text top */
+  gap: 0.75rem; /* Space between icon and text */
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed #eee; /* Separator */
+  transition: background-color 0.2s ease;
+}
+.loyalist-row:last-child {
+    border-bottom: none;
+}
+.loyalist-row:hover {
+    background-color: #fafafa; /* Slight highlight on hover */
+}
+
+/* Medal/Star Icon */
+.loyalist-medal { /* Assuming icon is first element */
+  font-size: 1.3rem;
+  line-height: 1.4; /* Align with text */
+  flex-shrink: 0;
+}
+
+/* Influencer descriptive text */
+.loyalist-info {
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.5;
+}
+.loyalist-info strong { /* Influencer Name */
+  color: #111;
+  font-weight: 600;
+}
+.loyalist-info em { /* Supporter Count */
+  color: #008000; /* Green for positive number */
+  font-style: normal;
+  font-weight: bold;
+}
+
+/* Responsive adjustments for loyalist section */
+@media (max-width: 600px) {
+  .loyalist-flex {
+    flex-direction: column; /* Stack columns on small screens */
+    align-items: center; /* Center items */
+    gap: 1rem;
+  }
+  .loyalist-images-col {
+    flex-direction: row; /* Images side-by-side */
+    min-width: auto;
+  }
+  .loyalist-influencers-col {
+      width: 100%; /* Take full width */
+      text-align: center;
+  }
+  .loyalist-row {
+      justify-content: center;
+      text-align: center;
+  }
+}
+
+
+/* --- COMMENT SECTION --- */
+.combo-comment-section {
+  display: none; /* Hidden initially, shown by JS */
+  background: #fdfdfd;
+  padding: 2rem; /* More padding */
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  margin-top: 2rem;
+  opacity: 0; /* Start transparent for fade-in */
+  transition: opacity 0.4s ease;
+}
+
+.combo-comment-section.active {
+  display: block; /* Make visible */
+  opacity: 1; /* Fade in */
+}
+
+/* Comment section title */
+.combo-comment-section h2 {
+  text-align: center;
+  color: #333;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* Comment Form */
+.combo-comment-form {
+  margin-bottom: 2rem; /* More space below form */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Space between inputs */
+}
+
+.combo-comment-form input[type="text"],
+.combo-comment-form textarea {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  font-size: 0.95rem;
+  background-color: #fff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%; /* Full width */
+}
+.combo-comment-form textarea {
+    resize: vertical; /* Allow vertical resize */
+    min-height: 80px;
+}
+
+/* Focus state for comment inputs */
+.combo-comment-form input[type="text"]:focus,
+.combo-comment-form textarea:focus {
+  outline: none;
+  border-color: #008000; /* Green border */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(0, 128, 0, 0.2); /* Green glow */
+}
+
+/* Post Comment Button */
+.combo-comment-btn {
+  padding: 0.8rem 1.8rem; /* Larger button */
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(145deg, #00c851, #008000); /* Green gradient */
+  border: none;
+  border-radius: 50px; /* Pill shape */
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 128, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+  align-self: flex-start; /* Align to left */
+  position: relative; /* For loader */
+  overflow: hidden;
+}
+.combo-comment-btn:hover {
+  background: linear-gradient(145deg, #00e058, #009000); /* Brighter green */
+  box-shadow: 0 6px 15px rgba(0, 128, 0, 0.35);
+  transform: translateY(-2px);
+}
+.combo-comment-btn:active {
+  transform: translateY(0px);
+  box-shadow: 0 3px 8px rgba(0, 128, 0, 0.2);
+}
+/* Loader specific to this button */
+.combo-comment-btn .button-loader {
+   width: 18px;
+   height: 18px;
+   border-width: 3px;
+}
+
+/* Comment List */
+.combo-comment-list {
+  margin-top: 1rem;
+  max-height: 450px; /* Limit height */
+  overflow-y: auto; /* Scroll if needed */
+  padding-right: 5px; /* Space for scrollbar */
+}
+
+/* Individual Comment Item */
+.combo-comment-item {
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 1rem; /* More padding */
+  margin-bottom: 1rem; /* More space */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+  position: relative;
+  border-left: 4px solid #eee; /* Subtle left border */
+  transition: border-left-color 0.3s ease, box-shadow 0.2s ease;
+}
+.combo-comment-item:hover {
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    border-left-color: #00c851; /* Green border on hover */
+}
+
+/* Comment Author */
+.comment-author {
+  font-weight: 700;
+  color: #006400; /* Dark Green */
+  margin-bottom: 0.3rem;
+  font-size: 0.95rem;
+}
+
+/* Comment Text */
+.comment-text {
+  font-size: 0.9rem;
+  line-height: 1.6; /* Better readability */
+  color: #333;
+  margin-bottom: 0.6rem;
+  word-wrap: break-word; /* Wrap long comments */
+}
+
+/* Reply Action Link/Button */
+.comment-actions {
+  font-size: 0.85rem;
+  color: #008000; /* Green */
+  cursor: pointer;
+  text-align: right;
+  padding: 5px;
+  display: inline-block;
+  float: right; /* Position to the right */
+  font-weight: 600;
+  transition: color 0.2s ease;
+  user-select: none; /* Prevent text selection */
+}
+.comment-actions:hover {
+  color: #005000; /* Darker green */
+  text-decoration: underline;
+}
+
+/* Reply Form */
+.reply-form {
+  background: #f0f0f0; /* Light grey background */
+  margin-top: 0.75rem;
+  border-radius: 6px;
+  padding: 0.8rem;
+  display: none; /* Hidden initially, shown by JS */
+  flex-direction: column;
+  gap: 0.6rem;
+  clear: both; /* Clear float from reply button */
+  border: 1px solid #ddd;
+}
+
+.reply-input,
+.reply-textarea {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.9rem;
+  background-color: #fff;
+  width: 100%;
+}
+.reply-textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+.reply-input:focus,
+.reply-textarea:focus {
+    outline: none;
+    border-color: #555;
+    box-shadow: 0 0 0 2px rgba(85, 85, 85, 0.2);
+}
+
+/* Post Reply Button */
+.reply-btn {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  background: #555; /* Dark grey */
+  border: none;
+  border-radius: 20px; /* Pill shape */
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  align-self: flex-start; /* Align left */
+  position: relative;
+  overflow: hidden;
+}
+.reply-btn:hover {
+  background: #333; /* Darker grey */
+}
+/* Loader for reply button */
+.reply-btn .button-loader {
+   width: 14px;
+   height: 14px;
+   border-width: 2px;
+}
+
+/* Container for Replies */
+.comment-replies {
+  margin-left: clamp(1rem, 5vw, 2rem); /* Indent replies */
+  margin-top: 0.75rem;
+  border-left: 3px solid #ccc; /* Indentation line */
+  padding-left: clamp(1rem, 5vw, 2rem); /* Space after line */
+}
+
+/* --- CONTACT US BUTTON --- */
+#contactUsBtn {
+  padding: 0.9rem 2rem; /* Larger padding */
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(145deg, #00c851, #00a040); /* Green gradient */
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 128, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+  display: inline-block; /* Allow centering */
+  position: relative;
+  overflow: hidden;
+  /* animation: pulseGlowContact 2.5s infinite ease-in-out; */ /* Optional pulse */
+}
+#contactUsBtn:hover {
+  background: linear-gradient(145deg, #00e058, #00b048); /* Brighter green */
+  box-shadow: 0 6px 18px rgba(0, 128, 0, 0.4);
+  transform: translateY(-2px) scale(1.02);
+  /* animation-play-state: paused; */
+}
+#contactUsBtn:active {
+  transform: translateY(0px) scale(1);
+  box-shadow: 0 3px 8px rgba(0, 128, 0, 0.25);
+}
+/* Optional pulse animation */
+/* @keyframes pulseGlowContact {
+  0%, 100% { box-shadow: 0 4px 12px rgba(0, 128, 0, 0.3); }
+  50% { box-shadow: 0 5px 16px rgba(0, 128, 0, 0.45); }
+} */
+
+/* --- LIGHTBOX FORM STYLES --- */
+.lightbox-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Space between fields */
+  margin-top: 1.5rem;
+}
+
+.lightbox-form label {
+  font-size: 0.9rem;
+  color: #444;
+  margin-bottom: -0.5rem; /* Pull label closer to input */
+  font-weight: 600;
+}
+
+.lightbox-form input[type="text"],
+.lightbox-form input[type="tel"],
+.lightbox-form input[type="email"],
+.lightbox-form textarea {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  font-size: 0.95rem;
+  background-color: #fff;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+}
+.lightbox-form textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* Focus state for lightbox inputs */
+.lightbox-form input[type="text"]:focus,
+.lightbox-form input[type="tel"]:focus,
+.lightbox-form input[type="email"]:focus,
+.lightbox-form textarea:focus {
+  outline: none;
+  border-color: #007bff; /* Blue focus border */
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07), 0 0 0 3px rgba(0, 123, 255, 0.25); /* Blue glow */
+}
+
+/* Submit button in lightboxes */
+.lightbox-submit-btn { /* Generic class for lightbox submit buttons */
+  padding: 0.8rem 1.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(145deg, #28a745, #218838); /* Green gradient */
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(33, 136, 56, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+  align-self: center; /* Center button */
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+.lightbox-submit-btn:hover {
+  background: linear-gradient(145deg, #2ebf4d, #259a40); /* Brighter green */
+  box-shadow: 0 5px 15px rgba(33, 136, 56, 0.4);
+  transform: translateY(-2px);
+}
+.lightbox-submit-btn:active {
+  transform: translateY(0px);
+  box-shadow: 0 2px 8px rgba(33, 136, 56, 0.3);
+}
+/* Loader for lightbox submit buttons */
+.lightbox-submit-btn .button-loader {
+   width: 18px;
+   height: 18px;
+   border-width: 3px;
+}
+
+
+/* Submission Success Message in Lightboxes */
+.submit-message {
+  display: none; /* Hidden initially */
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #2e7d32; /* Dark green */
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0.8rem;
+  background-color: #e8f5e9;
+  border-radius: 6px;
+  border: 1px solid #c8e6c9;
+}
+
+/* --- FOOTER --- */
+footer {
+  width: 100%;
+  max-width: 1400px; /* Match container width */
+  margin: 2rem auto 0; /* Space above footer */
+  padding: 1.5rem; /* More padding */
+  text-align: center;
+  font-size: 0.8rem; /* Smaller text */
+  color: #e0e0e0; /* Lighter text on dark background */
+  background: #333; /* Dark background */
+  border-radius: 8px 8px 0 0; /* Rounded top corners */
+}
+
+footer p {
+  margin: 0.5rem 0;
+  line-height: 1.5;
+}
+
+.security-badges {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem; /* More space */
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.security-badge {
+    position: relative; /* Needed for tooltip */
+}
+
+.security-badge img {
+  width: 35px; /* Smaller badges */
+  height: 35px;
+  /* Removed border-radius if using non-circular icons */
+  object-fit: contain; /* Use contain for icons */
+  filter: brightness(0.9) contrast(1.1); /* Adjust icon appearance */
+  transition: transform 0.3s ease;
+  opacity: 0.8;
+}
+.security-badge:hover img {
+  transform: scale(1.1); /* Scale icon on hover */
+  opacity: 1;
+}
+
+/* --- TOOLTIPS --- */
+/* General tooltip container */
+[data-tip] {
+  position: relative; /* Required for absolute positioning of tooltip */
+  cursor: help; /* Indicate help is available */
+}
+
+/* Tooltip text bubble */
+[data-tip]::before {
+  content: attr(data-tip); /* Get text from data-tip attribute */
+  position: absolute;
+  bottom: 125%; /* Position above the element */
+  left: 50%;
+  transform: translateX(-50%); /* Center horizontally */
+  width: max-content; /* Adjust width to content */
+  max-width: 220px; /* Limit max width */
+  padding: 8px 12px;
+  background-color: #333; /* Dark background */
+  color: #fff; /* White text */
+  font-size: 0.8rem; /* Tooltip font size */
+  font-weight: normal; /* Reset font weight */
+  font-family: "Montserrat", sans-serif; /* Ensure consistent font */
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0; /* Hidden by default */
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  z-index: 10000; /* Ensure tooltip is on top */
+  white-space: normal; /* Allow text wrapping */
+  text-align: left;
+}
+
+/* Tooltip arrow */
+[data-tip]::after {
+  content: '';
+  position: absolute;
+  bottom: 125%; /* Position with the bubble */
+  left: 50%;
+  transform: translateX(-50%) translateY(100%); /* Position below bubble */
+  margin-bottom: -5px; /* Overlap slightly */
+  border-width: 6px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent; /* Arrow pointing down */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  z-index: 10000;
+}
+
+/* Show tooltip on hover */
+[data-tip]:hover::before,
+[data-tip]:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Info Icon specific styling */
+.info-icon {
+  display: inline-block;
+  margin-left: 4px;
+  color: #007bff; /* Blue info color */
+  font-weight: bold;
+  font-style: normal; /* Ensure not italic */
+  font-size: 0.9em; /* Slightly smaller */
+  line-height: 1;
+  vertical-align: middle;
+}
+
+
+/* --- UTILITY CLASSES --- */
+.visually-hidden { /* For accessibility */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Hide data tables */
+#candidateDataTable,
+#comboDataTable,
+#userDataTable,
+#loyalistDataTable {
+  display: none;
+}
+
+/* --- RESPONSIVE SCROLLBARS ON MOBILE --- */
+@media (max-width: 767px) {
+  .candidate-list,
+  #chartBars,
+  #loyalistCombosContainer,
+  .combo-grid, /* Apply to combo grid too */
+  .combo-comment-list { /* Apply to comment list */
+    max-height: 45vh; /* Limit height on mobile */
+    overflow-y: auto; /* Enable scroll */
+    padding-bottom: 1rem; /* Space at bottom */
+    /* Webkit Scrollbar Styling */
+    &::-webkit-scrollbar {
+      width: 8px; /* Slightly wider scrollbar */
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #aaa; /* Darker thumb */
+      border-radius: 4px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: #f0f0f0; /* Lighter track */
+    }
+  }
+   /* Override for selection boxes on mobile if needed */
+   .selection-box .candidate-list {
+       max-height: 50vh;
+   }
+}
+
+/* Remove mobile scroll constraints on larger screens */
+@media (min-width: 768px) {
+  #chartBars,
+  #loyalistCombosContainer,
+  .combo-comment-list {
+    max-height: none; /* Remove height limit */
+    overflow-y: visible; /* Disable scroll */
+  }
+}
+
+
+/* --- Language Switcher --- */
+.language-switcher {
+    position: fixed;
+    top: 15px;
+    left: 15px; /* Default position */
+    z-index: 1002;
+}
+.language-switcher select {
+    padding: 0.4rem 0.6rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Final Adjustments for Larger Screens */
+@media (min-width: 600px) {
+  body { padding: 1.5rem; }
+  .container { padding: 2rem; } /* More padding */
+  .header img { max-width: 100px; }
+  .main-heading { font-size: 2.2rem; }
+  .sub-heading { font-size: 1rem; }
+  .vote-form { padding: 1.5rem 2rem; }
+  .bar-label { font-size: 0.9rem; }
+  .bar-count-label { font-size: 0.8rem; }
+  .combo-title { font-size: 0.95rem; }
+  .loyalist-square-img { width: 65px; height: 65px; }
+  .loyalist-info { font-size: 0.95rem; }
+  #popularityPie { height: 450px; }
+}
+
+@media (min-width: 992px) {
+  body { padding: 2rem; }
+  .container { padding: 2rem 2.5rem 2.5rem; }
+  .main-heading { font-size: 2.5rem; }
+  .bar-label { flex-basis: 220px; } /* Adjust label width */
+  .bar-container { /* Adjust bar width if needed */ }
+}
+
+@media (min-width: 1200px) {
+    .bar-label { flex-basis: 250px; }
+}
 
-      width:100%; max-width:1400px; margin:50px auto 0;
-
-      position:relative; z-index:1;
-
-      background:rgba(255,255,255,0.95); border-radius:10px;
-
-      box-shadow:0 4px 20px rgba(0,0,0,0.1); padding:1rem;
-
-      animation:fadeIn 1.2s ease;
-
-    }
-
-    @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-
-    /* --- HEADER --- */
-
-    .header { text-align:center; margin-bottom:1.5rem; position:relative; }
-
-    .header img { max-width:80px; display:block; margin:0.5rem auto; }
-
-    .main-heading { font-size:clamp(1.8rem,5vw,2.2rem); font-weight:900; color:#333; }
-
-    .sub-heading { font-size:0.9rem; color:#555; max-width:600px; margin:0.5rem auto 1rem; line-height:1.4; }
-
-    /* --- Referral Info Box --- */
-
-    .referral-info {
-
-      background:#e0f2fe; color:#075985; border:1px solid #bae6fd;
-
-      border-radius:8px; padding:.8rem 1rem; margin:1.5rem auto;
-
-      max-width:95%; font-size:.85rem; line-height:1.5; text-align:center;
-
-    }
-
-    .referral-info strong { color:#0369a1; }
-
-    .referral-info button#getReferralCodeBtn {
-
-      margin-top:.75rem; padding:.6rem 1.2rem; font-size:.85rem; font-weight:600;
-
-      color:#fff; background:linear-gradient(145deg,#0ea5e9,#0284c7);
-
-      border:none; border-radius:50px; cursor:pointer;
-
-      box-shadow:0 2px 6px rgba(2,132,199,0.3);
-
-      transition:transform .2s,box-shadow .2s,background .3s;
-
-    }
-
-    .referral-info button#getReferralCodeBtn:hover {
-
-      background:linear-gradient(145deg,#38bdf8,#0ea5e9);
-
-      box-shadow:0 4px 10px rgba(2,132,199,0.4); transform:translateY(-1px);
-
-    }
-
-    .divider { width:100px; height:3px; background:#555; margin:1rem auto; border-radius:5px; }
-
-    .section-subtitle { font-size:.85rem; color:#666; text-align:center; margin:0.5rem 0 1rem; font-style:italic; }
-
-    /* --- MOBILE NAVIGATION --- */
-
-    #mobileMenuBtn {
-
-      display:none; position:fixed; top:10px; left:10px; z-index:1002;
-
-      background:rgba(0,128,0,0.8); border:none; border-radius:50%; padding:.5rem;
-
-      cursor:pointer; box-shadow:0 2px 5px rgba(0,0,0,0.2);
-
-    }
-
-    #mobileMenuBtn svg { width:24px; height:24px; stroke:#fff; stroke-width:2; }
-
-    #mobileNavPanel {
-
-      position:fixed; top:0; left:0; width:250px; height:100%;
-
-      background:#333; color:#fff; padding:60px 1rem 1rem;
-
-      transform:translateX(-100%); transition:transform .3s ease-in-out;
-
-      z-index:1001; box-shadow:3px 0 15px rgba(0,0,0,0.3); overflow-y:auto;
-
-    }
-
-    #mobileNavPanel.active { transform:translateX(0); }
-
-    #mobileNavPanel nav ul { list-style:none; }
-
-    #mobileNavPanel nav li { margin-bottom:1rem; }
-
-    #mobileNavPanel nav a {
-
-      color:#eee; text-decoration:none; font-size:1.1rem; font-weight:600;
-
-      padding:.5rem 0; display:block; transition:color .2s;
-
-    }
-
-    #mobileNavPanel nav a:hover { color:#00c851; }
-
-    .menu-close-btn {
-
-      position:absolute; top:15px; right:15px; background:none; border:none;
-
-      color:#fff; font-size:1.8rem; font-weight:bold; cursor:pointer;
-
-    }
-
-    @media(max-width:991px){ #mobileMenuBtn { display:block; } .container { margin-top:0; } }
-
-    /* --- FLOATING ELEMENTS --- */
-
-    #countdownTimer {
-
-      position:fixed; top:5px; right:5px; background:#cc0000; color:#fff;
-
-      font-weight:bold; padding:.4rem .8rem; border-radius:50px;
-
-      box-shadow:0 2px 8px rgba(0,0,0,0.2); z-index:1000; font-size:.8rem;
-
-      text-align:center;
-
-    }
-
-    .wiki-lightbox-overlay, .lightbox-overlay {
-
-      position:fixed; inset:0; background:rgba(0,0,0,0.7);
-
-      display:none; justify-content:center; align-items:center;
-
-      z-index:9999; padding:1rem;
-
-    }
-
-    .wiki-lightbox-content, .lightbox-content {
-
-      position:relative; width:95%; max-width:500px; max-height:90vh;
-
-      overflow-y:auto; background:#fff; border-radius:10px;
-
-      box-shadow:0 3px 15px rgba(0,0,0,0.5); padding:1.5rem;
-
-    }
-
-    .wiki-lightbox-close, .lightbox-close {
-
-      position:absolute; top:.5rem; right:.8rem; font-size:1.5rem;
-
-      cursor:pointer; color:#333; font-weight:bold;
-
-      background:rgba(255,255,255,0.7); border-radius:50%;
-
-      width:30px; height:30px; line-height:30px; text-align:center;
-
-    }
-
-    #wikiIframe { width:100%; height:100%; border:none; border-radius:10px; flex-grow:1; }
-
-    /* --- SELECTION SECTION --- */
-
-    .selection-section {
-
-      display:flex; flex-direction:column; gap:1rem;
-
-      justify-content:center; margin-bottom:1rem;
-
-      animation:slideUp .8s ease;
-
-    }
-
-    @keyframes slideUp { from{transform:translateY(30px);opacity:0} to{transform:translateY(0);opacity:1} }
-
-    @media(min-width:768px){ .selection-section { flex-direction:row; } }
-
-    .selection-box {
-
-      flex:1; background:#fafafa; border-radius:10px;
-
-      box-shadow:0 2px 10px rgba(0,0,0,0.1); padding:1rem;
-
-    }
-
-    .selection-box h2 {
-
-      text-align:center; margin-bottom:1rem;
-
-      color:#333; font-size:1.1rem; font-weight:700;
-
-    }
-
-    .candidate-list {
-
-      display:grid; grid-template-columns:repeat(auto-fill,minmax(100px,1fr));
-
-      gap:.75rem; justify-content:center;
-
-    }
-
-    .candidate-item {
-
-      background:#fff; border-radius:8px; padding:.5rem;
-
-      text-align:center; cursor:pointer; transition:transform .2s,box-shadow .2s;
-
-      display:flex; flex-direction:column; align-items:center;
-
-      justify-content:space-between; min-height:180px; position:relative; overflow:hidden;
-
-    }
-
-    .candidate-item::before, .candidate-item::after {
-
-      content:''; position:absolute; top:0; bottom:0; width:4px;
-
-      background:linear-gradient(to bottom,#00c851,#00c840); z-index:0;
-
-      pointer-events:none;
-
-    }
-
-    .candidate-item::before { left:0; border-radius:8px 0 0 8px; }
-
-    .candidate-item::after  { right:0; border-radius:0 8px 8px 0; }
-
-    .candidate-item > * { position:relative; z-index:1; }
-
-    .candidate-photo {
-
-      width:clamp(60px,15vw,80px); height:clamp(60px,15vw,80px);
-
-      border-radius:50%; object-fit:cover; border:2px solid #ccc;
-
-      transition:border .2s;
-
-    }
-
-    .candidate-name { font-size:.8rem; font-weight:600; color:#333; word-break:break-word; }
-
-    .candidate-details { font-size:.7rem; color:#777; line-height:1.2; margin:.4rem 0; }
-
-    .candidate-item:hover {
-
-      transform:translateY(-3px) scale(1.02);
-
-      box-shadow:0 5px 12px rgba(0,0,0,0.15);
-
-    }
-
-    .candidate-item.selected {
-
-      background:linear-gradient(145deg,#00c851,#008000);
-
-      color:#fff!important; font-weight:bold;
-
-      box-shadow:0 4px 15px rgba(0,0,0,0.2); transform:scale(1.03);
-
-      border-color:transparent;
-
-    }
-
-    .candidate-item.selected::before,
-
-    .candidate-item.selected::after { display:none; }
-
-    .like-container {
-
-      display:flex; align-items:center; gap:.3rem;
-
-      background:#f0f0f0; border-radius:10px; padding:.3rem .6rem;
-
-      margin-top:auto; transition:background .2s;
-
-    }
-
-    .like-btn {
-
-      border:none; background:none; cursor:pointer;
-
-      font-size:1.1rem; color:#cc0000; transition:transform .2s;
-
-      position:relative; z-index:1;
-
-    }
-
-    .like-btn:hover { transform:scale(1.2); }
-
-    .like-count { font-size:.75rem; color:#555; font-weight:600; }
-
-    /* --- HEART BLAST ANIMATION --- */
-
-    .heart-particle {
-
-      position:fixed; pointer-events:none; user-select:none;
-
-      font-size:1.5rem; color:#ff4757; z-index:99999; opacity:0;
-
-      animation:heartBlastAnimation 1.2s ease-out forwards;
-
-    }
-
-    @keyframes heartBlastAnimation {
-
-      0%   { opacity:1; transform:translate(0,0) scale(0.5) }
-
-      100% { opacity:0; transform:translate(var(--tx),var(--ty)) scale(1.2) }
-
-    }
-
-    /* --- VOTE SECTION --- */
-
-    .vote-section {
-
-      display:flex; flex-direction:column; align-items:center;
-
-      gap:1rem; margin:1.5rem 0; padding-top:1.5rem; border-top:1px solid #eee;
-
-      flex-wrap:wrap;
-
-    }
-
-    @media(min-width:992px){ .vote-section { flex-direction:row; align-items:flex-start; } }
-
-    .vote-form {
-
-      display:flex; flex-wrap:wrap; gap:.75rem;
-
-      background:#fafafa; padding:1rem; border-radius:10px;
-
-      box-shadow:0 2px 6px rgba(0,0,0,0.1); width:100%; max-width:800px;
-
-      justify-content:center; align-items:center;
-
-    }
-
-    .vote-form label { font-size:.8rem; margin-right:-.5rem; color:#555; }
-
-    .vote-form select, .vote-form input {
-
-      border:1px solid #ccc; border-radius:8px; padding:.6rem .8rem;
-
-      font-size:.9rem; flex:1 1 150px; min-width:120px;
-
-    }
-
-    #voterAge { flex-basis:80px; min-width:60px; }
-
-    #voterReferral { flex-basis:120px; }
-
-    .vote-button {
-
-      position:relative; width:100px; height:100px; border-radius:50%;
-
-      border:none; background:#ccc; color:#fff; font-size:1rem; font-weight:700;
-
-      cursor:pointer; overflow:hidden; transition:background .3s; margin-top:.5rem;
-
-    }
-
-    @media(min-width:992px){ .vote-button { margin-top:0; } }
-
-    .vote-button:disabled { cursor:not-allowed; background:#ccc; }
-
-    .vote-button .fill-overlay {
-
-      position:absolute; top:0; left:0; height:100%; width:0%;
-
-      background:linear-gradient(to right,#00c851,#008000);
-
-      transition:width .4s; z-index:1;
-
-    }
-
-    .vote-button .vote-text { position:relative; z-index:2; }
-
-    .vote-button.bounce { animation:bounce .8s infinite; }
-
-    @keyframes bounce { 0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)} }
-
-    .legend { font-size:.75rem; color:#666; margin-top:.5rem; text-align:center; width:100%; }
-
-    /* --- RESULTS SECTION --- */
-
-    .results-section {
-
-      display:flex; flex-direction:column; gap:1.5rem; width:100%; margin-top:1.5rem;
-
-    }
-
-    @media(min-width:992px){ .results-section { flex-direction:row; justify-content:space-between; } }
-
-    .chart, .voted-combos, .extra-chart-container {
-
-      flex:1 1 100%; background:#fff; border-radius:10px;
-
-      box-shadow:0 2px 10px rgba(0,0,0,0.1); padding:1rem; position:relative; min-width:0;
-
-    }
-
-    @media(min-width:992px){
-
-      .chart, .voted-combos { flex-basis:48%; }
-
-      .extra-chart-container { flex-basis:100%; }
-
-    }
-
-    .chart h2, .voted-combos h2, .extra-chart-container h3 {
-
-      text-align:center; color:#333; font-size:1.1rem; font-weight:700; margin-bottom:1rem;
-
-    }
-
-    #chartBars { max-height:400px; overflow-y:auto; }
-
-    .chart-bar {
-
-      display:flex; align-items:center; gap:.5rem; margin-bottom:.6rem; flex-wrap:wrap;
-
-    }
-
-    .bar-label {
-
-      flex:1; font-size:.75rem; font-weight:bold;
-
-      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-
-    }
-
-    .bar-count-label { font-size:.7rem; color:#666; margin-left:5px; }
-
-    .bar-container {
-
-      flex:2; background:#f0f0f0; height:14px; border-radius:10px; overflow:hidden; position:relative;
-
-    }
-
-    .bar-fill { height:100%; background:linear-gradient(to right,#00c851,#008000); transition:width .5s; }
-
-    /* --- COMBO GRID --- */
-
-    .combo-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:1rem; }
-
-    .combo-card {
-
-      background:#f9f9f9; border-radius:8px; padding:.75rem; box-shadow:0 2px 5px rgba(0,0,0,0.08);
-
-      text-align:center; cursor:pointer; position:relative; display:flex; flex-direction:column; min-height:180px;
-
-      transition:transform .2s,box-shadow .2s;
-
-    }
-
-    .combo-card:hover { transform:translateY(-2px); box-shadow:0 4px 8px rgba(0,0,0,0.12); }
-
-    .share-btn {
-
-      position:absolute; top:8px; right:8px; border:none; background:none; cursor:pointer;
-
-      font-size:1rem; color:#008000; transition:transform .2s;
-
-    }
-
-    .share-btn:hover { transform:scale(1.15); }
-
-    .combo-top { display:flex; justify-content:center; align-items:center; gap:.5rem; margin-bottom:.5rem; }
-
-    .combo-img {
-
-      width:clamp(45px,12vw,55px); height:clamp(45px,12vw,55px);
-
-      border-radius:50%; object-fit:cover; border:1px solid #ccc;
-
-    }
-
-    .combo-title { font-weight:bold; font-size:.85rem; color:#333; word-break:break-word; flex-grow:1; margin-bottom:.5rem; }
-
-    .combo-stats {
-
-      display:flex; justify-content:center; align-items:center; gap:1rem; font-size:.8rem; color:#555;
-
-      flex-wrap:wrap; margin-top:auto;
-
-    }
-
-    .vote-heart { color:#cc0000; font-weight:bold; }
-
-    .comment-icon { color:#008000; font-weight:bold; }
-
-    /* --- MAP SECTION --- */
-
-    .map-heading { text-align:center; font-size:1.1rem; font-weight:700; margin:1.5rem 0 1rem; }
-
-    #nigeriaMap {
-
-      width:100%; height:350px; max-height:60vh; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1);
-
-      background:#e9e9e9; overflow:hidden;
-
-    }
-
-    @media(min-width:768px){ #nigeriaMap { height:500px; } }
-
-    /* --- LOYALIST SECTION --- */
-
-    .loyalist-combo-wrap {
-
-      background:#fff; border-radius:10px; padding:1rem; margin-bottom:1.5rem;
-
-      box-shadow:0 2px 6px rgba(0,0,0,0.1);
-
-    }
-
-    .loyalist-combo-title { font-size:1rem; font-weight:bold; margin-bottom:.75rem; color:#333; }
-
-    .loyalist-flex { display:flex; gap:1rem; align-items:flex-start; }
-
-    .loyalist-images-col {
-
-      display:flex; flex-direction:column; align-items:center; gap:.5rem; min-width:100px;
-
-    }
-
-    .loyalist-square-img {
-
-      width:50px; height:50px; border-radius:8px; object-fit:cover; border:1px solid #ccc;
-
-    }
-
-    .loyalist-influencers-col { flex:1; display:flex; flex-direction:column; gap:.6rem; }
-
-    .loyalist-row { display:flex; align-items:flex-start; gap:.5rem; }
-
-    .loyalist-info { font-size:.9rem; color:#333; line-height:1.4; }
-
-    .loyalist-info strong { color:#111; }
-
-    .loyalist-info em    { color:#666; font-style:italic; }
-
-    /* --- PIE CHART SECTION --- */
-
-    .extra-chart-container h3 { margin-bottom:1rem; }
-
-    #popularityPie { width:100%; height:350px; max-height:50vh; }
-
-    /* --- COMMENTS SECTION --- */
-
-    .combo-comment-section {
-
-      display:none; background:#fdfdfd; padding:1.5rem; border-radius:10px;
-
-      box-shadow:0 2px 8px rgba(0,0,0,0.08); margin-top:1.5rem;
-
-    }
-
-    .combo-comment-section.active { display:block; }
-
-    .combo-comment-form { display:flex; flex-direction:column; gap:.75rem; margin-bottom:1.5rem; }
-
-    .combo-comment-form input[type="text"],
-
-    .combo-comment-form textarea {
-
-      border:1px solid #ddd; border-radius:8px; padding:.8rem 1rem;
-
-      font-size:.9rem; background:#fff; box-shadow:inset 0 1px 3px rgba(0,0,0,0.06);
-
-      transition:border-color .3s,box-shadow .3s;
-
-    }
-
-    .combo-comment-form input:focus,
-
-    .combo-comment-form textarea:focus {
-
-      outline:none; border-color:#008000;
-
-      box-shadow:inset 0 1px 3px rgba(0,0,0,0.06),0 0 0 2px rgba(0,128,0,0.2);
-
-    }
-
-    .combo-comment-btn {
-
-      padding:.7rem 1.5rem; font-size:.95rem; font-weight:600;
-
-      color:#fff; background:linear-gradient(145deg,#00c851,#008000);
-
-      border:none; border-radius:50px; cursor:pointer;
-
-      box-shadow:0 3px 8px rgba(0,128,0,0.2);
-
-      transition:transform .2s,box-shadow .2s,background .3s;
-
-      align-self:flex-start;
-
-    }
-
-    .combo-comment-btn:hover {
-
-      background:linear-gradient(145deg,#00e058,#009000);
-
-      box-shadow:0 5px 12px rgba(0,128,0,0.3); transform:translateY(-2px);
-
-    }
-
-    .combo-comment-list { max-height:400px; overflow-y:auto; margin-top:1rem; }
-
-    .combo-comment-item {
-
-      background:#f9f9f9; border-radius:6px; padding:.75rem;
-
-      margin-bottom:.75rem; box-shadow:0 1px 3px rgba(0,0,0,0.08); position:relative;
-
-    }
-
-    .comment-author { font-weight:700; color:#006400; margin-bottom:.2rem; font-size:.9rem; }
-
-    .comment-text { font-size:.85rem; color:#333; margin-bottom:.4rem; word-wrap:break-word; }
-
-    .comment-actions {
-
-      font-size:.8rem; color:#008000; font-weight:600;
-
-      cursor:pointer; float:right; transition:color .2s;
-
-    }
-
-    .comment-actions:hover { color:#005000; }
-
-    .reply-form {
-
-      display:none; flex-direction:column; gap:.4rem; clear:both; margin-top:.5rem;
-
-      background:#eee; border-radius:6px; padding:.6rem;
-
-    }
-
-    .reply-input, .reply-textarea {
-
-      border:1px solid #ccc; border-radius:6px; padding:.5rem .7rem; font-size:.85rem; background:#fff;
-
-    }
-
-    .reply-btn {
-
-      padding:.5rem 1rem; font-size:.8rem; font-weight:600; color:#fff;
-
-      background:#555; border:none; border-radius:20px; cursor:pointer;
-
-      transition:background .2s; align-self:flex-start;
-
-    }
-
-    .reply-btn:hover { background:#333; }
-
-    .comment-replies {
-
-      margin-left:clamp(.5rem,5vw,1.5rem); margin-top:.5rem;
-
-      border-left:2px solid #ccc; padding-left:clamp(.5rem,5vw,1.5rem);
-
-    }
-
-    /* --- CONTACT US BUTTON --- */
-
-    #contactUsBtn {
-
-      padding:.8rem 1.8rem; font-size:.9rem; font-weight:600; color:#fff;
-
-      background:linear-gradient(145deg,#00c851,#00c800); border:none; border-radius:50px;
-
-      cursor:pointer; box-shadow:0 3px 8px rgba(0,86,179,0.3);
-
-      transition:transform .2s,box-shadow .2s,background .3s;
-
-      animation:pulseGlow 2.5s infinite ease-in-out; position:relative; overflow:hidden;
-
-    }
-
-    #contactUsBtn:hover {
-
-      background:linear-gradient(90deg,#00c851,#008000);
-
-      box-shadow:0 5px 12px rgba(0,86,179,0.4); transform:translateY(-2px) scale(1.02);
-
-      animation-play-state:paused;
-
-    }
-
-    #contactUsBtn:active {
-
-      transform:translateY(0) scale(1); box-shadow:0 2px 5px rgba(0,86,179,0.3);
-
-    }
-
-    @keyframes pulseGlow {
-
-      0%,100%{ box-shadow:0 3px 8px rgba(0,86,179,0.3) }
-
-      50%{ box-shadow:0 4px 14px rgba(0,86,179,0.5) }
-
-    }
-
-    /* --- LIGHTBOX FORM --- */
-
-    .lightbox-form { display:flex; flex-direction:column; gap:.8rem; margin-top:1rem; }
-
-    .lightbox-form label { font-size:.85rem; color:#555; font-weight:600; margin-bottom:-.4rem; }
-
-    .lightbox-form input[type="text"],
-
-    .lightbox-form input[type="tel"],
-
-    .lightbox-form input[type="email"],
-
-    .lightbox-form textarea {
-
-      border:1px solid #ccc; border-radius:8px; padding:.7rem .9rem;
-
-      font-size:.9rem; background:#fff; box-shadow:inset 0 1px 2px rgba(0,0,0,0.07);
-
-      transition:border-color .3s,box-shadow .3s; width:100%;
-
-    }
-
-    .lightbox-form input:focus, .lightbox-form textarea:focus {
-
-      outline:none; border-color:#007bff;
-
-      box-shadow:inset 0 1px 2px rgba(0,0,0,0.07),0 0 0 3px rgba(0,123,255,0.25);
-
-    }
-
-    .lightbox-form textarea { resize:vertical; min-height:80px; }
-
-    .lightbox-form button[type="submit"] {
-
-      padding:.75rem 1.6rem; font-size:.95rem; font-weight:600; color:#fff;
-
-      background:linear-gradient(145deg,#28a745,#218838);
-
-      border:none; border-radius:50px; cursor:pointer;
-
-      box-shadow:0 3px 8px rgba(33,136,56,0.3);
-
-      transition:transform .2s,box-shadow .2s,background .3s; align-self:center; margin-top:.5rem;
-
-    }
-
-    .lightbox-form button:hover {
-
-      background:linear-gradient(145deg,#2ebf4d,#259a40);
-
-      box-shadow:0 5px 12px rgba(33,136,56,0.4); transform:translateY(-2px);
-
-    }
-
-    .lightbox-form button:active {
-
-      transform:translateY(0); box-shadow:0 2px 5px rgba(33,136,56,0.3);
-
-    }
-
-    .submit-message { display:none; text-align:center; margin-top:1rem; color:green; font-weight:bold; }
-
-    /* --- FOOTER --- */
-
-    footer {
-
-      width:100%; max-width:1400px; margin:1.5rem auto 0; padding:1rem;
-
-      text-align:center; font-size:.75rem; color:#fff; background:#008000; border-radius:5px;
-
-    }
-
-    footer p { margin:.4rem 0; }
-
-    .security-badges {
-
-      display:flex; justify-content:center; align-items:center; gap:1rem; margin-top:.5rem; flex-wrap:wrap;
-
-    }
-
-    .security-badge img {
-
-      width:50px; height:50px; border-radius:50%; object-fit:cover;
-
-      box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:transform .3s;
-
-      animation:wiggle 10s infinite ease-in-out;
-
-    }
-
-    .security-badge img:hover { transform:scale(1.05); }
-
-    @keyframes wiggle {
-
-      0%,100%{transform:rotate(0)}20%{transform:rotate(4deg)}
-
-      50%{transform:rotate(-3deg)}80%{transform:rotate(2deg)}
-
-    }
-
-    /* --- UTILITY --- */
-
-    #candidateDataTable, #comboDataTable, #userDataTable, #loyalistDataTable { display:none; }
-
-    /* --- UNIVERSAL TOOLTIP --- */
-
-    [data-tip] { position:relative; cursor:help; }
-
-    [data-tip]:before, [data-tip]:after {
-
-      position:absolute; opacity:0; pointer-events:none; transition:.2s;
-
-    }
-
-    [data-tip]:before {
-
-      content:attr(data-tip); bottom:110%; left:50%; transform:translateX(-50%);
-
-      background:#222; color:#fff; padding:.35rem .55rem; border-radius:4px;
-
-      font-size:.7rem; white-space:nowrap;
-
-    }
-
-    [data-tip]:after {
-
-      content:''; border:6px solid transparent; border-top-color:#222;
-
-      bottom:100%; left:50%; transform:translateX(-50%);
-
-    }
-
-    [data-tip]:hover:before, [data-tip]:hover:after { opacity:1; }
-
-    /* --- SUBTLE PULSE ON HOVER --- */
-
-    .candidate-item:hover { animation:pulse .6s; }
-
-    @keyframes pulse { 50% { transform:scale(1.05); } }
-
-    /* --- SCROLLBARS ON MOBILE --- */
-
-    @media(max-width:767px){
-
-      .candidate-list,#chartBars,#loyalistCombosContainer,#comboGrid,#comboCommentList {
-
-        max-height:45vh; overflow-y:auto; padding-bottom:1rem;
-
-      }
-
-      .candidate-list::-webkit-scrollbar,
-
-      #chartBars::-webkit-scrollbar,
-
-      #loyalistCombosContainer::-webkit-scrollbar,
-
-      #comboGrid::-webkit-scrollbar,
-
-      #comboCommentList::-webkit-scrollbar { width:6px; }
-
-      .candidate-list::-webkit-scrollbar-thumb,
-
-      #chartBars::-webkit-scrollbar-thumb,
-
-      #loyalistCombosContainer::-webkit-scrollbar-thumb,
-
-      #comboGrid::-webkit-scrollbar-thumb,
-
-      #comboCommentList::-webkit-scrollbar-thumb {
-
-        background:#ccc; border-radius:3px;
-
-      }
-
-      .candidate-list::-webkit-scrollbar-track,
-
-      #chartBars::-webkit-scrollbar-track,
-
-      #loyalistCombosContainer::-webkit-scrollbar-track,
-
-      #comboGrid::-webkit-scrollbar-track,
-
-      #comboCommentList::-webkit-scrollbar-track { background:#f0f0f0; }
-
-    }
-
- 
