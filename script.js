@@ -282,6 +282,25 @@ document.addEventListener('DOMContentLoaded', () => {
              if (el.id === 'voteBtn' && el.disabled) {
                  tipKey = 'tipVoteBtnDisabled';
              }
+             // Special case for info icons using class + specific key
+             if (el.classList.contains('info-icon') && el.dataset.tipKey) {
+                 tipKey = el.dataset.tipKey;
+             }
+             // Special cases for security badges
+             if (el.classList.contains('security-badge')) {
+                 if (el.querySelector('img[alt*="HTTPS"]')) tipKey = 'tipSecurityBadgeHttps';
+                 else if (el.querySelector('img[alt*="Integrity"]')) tipKey = 'tipSecurityBadgeIntegrity';
+                 else if (el.querySelector('img[alt*="Simulation"]')) tipKey = 'tipSecurityBadgeSimulation';
+             }
+             // Special case for share button
+             if (el.classList.contains('share-btn')) {
+                 tipKey = 'tipShareBtn';
+             }
+              // Special case for like button
+             if (el.classList.contains('like-btn')) {
+                 tipKey = 'likeButtonTip';
+             }
+
 
             const tipText = t(tipKey); // Get translation using the found key
 
@@ -1378,17 +1397,61 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // --- IMPORTANT: Map CMS field keys to readable combo names ---
-        // This mapping is CRUCIAL and depends ENTIRELY on how the fields
-        // are named in your Wix CMS collection (mapStatesData).
-        // Add ALL possible field keys from your CMS here.
+        // Added mappings based on the log data provided.
+        // !! Review and add any other keys present in your 'mapStates' collection !!
         const keyToComboNameMap = {
-            "bolaTinubuKashimShettima": "Bola Tinubu & Kashim Shettima", // Example key
-            "atikuAbubakarNyesomWike": "Atiku Abubakar & Nyesom Wike", // Example key
-            "peterObiYemiOsinbajo": "Peter Obi & Yemi Osinbajo", // Example key
-            // Add ALL other combo field keys from your CMS collection below
-            // "cmsFieldKey1": "Readable Combo Name 1",
-            // "cmsFieldKey2": "Readable Combo Name 2",
-            // ...etc
+            "bolaTinubuKashimShettima": "Bola Tinubu & Kashim Shettima",
+            "tinubuKashim": "Bola Tinubu & Kashim Shettima", // Alias
+            "atikuAbubakarNyesomWike": "Atiku Abubakar & Nyesom Wike",
+            "peterObiYemiOsinbajo": "Peter Obi & Yemi Osinbajo",
+            "peterBukola": "Peter Obi & Bukola Saraki",
+            "Atiku Abubakar & Goodluck Jonathan": "Atiku Abubakar & Goodluck Jonathan", // Handle full name keys
+            "atikuGoodluck": "Atiku Abubakar & Goodluck Jonathan", // Alias
+            "Nyesom Wike & Sanusi Lamido": "Nyesom Wike & Sanusi Lamido",
+            "wikeSanusi": "Nyesom Wike & Sanusi Lamido", // Alias
+            "Yemi Osinbajo & Sanusi Lamido": "Yemi Osinbajo & Sanusi Lamido",
+            "yemiSanusi": "Yemi Osinbajo & Sanusi Lamido", // Alias
+            "Peter Obi & Yakubu Dogara": "Peter Obi & Yakubu Dogara", // Example, check if key exists
+            "Aminu Tambuwal & Nyesom Wike": "Aminu Tambuwal & Nyesom Wike",
+            "tambuwalWike": "Aminu Tambuwal & Nyesom Wike", // Alias
+             "Aminu Tambuwal & Peter Obi": "Aminu Tambuwal & Peter Obi",
+             "tambuwalPeter": "Aminu Tambuwal & Peter Obi", // Alias
+             "Atiku Abubakar & Peter Obi": "Atiku Abubakar & Peter Obi",
+             "atikuPeter": "Atiku Abubakar & Peter Obi", // Alias
+             "Atiku Abubakar & Rotimi Amaechi": "Atiku Abubakar & Rotimi Amaechi",
+             "atikuRotimiAmaechi": "Atiku Abubakar & Rotimi Amaechi", // Alias
+             "Bola Tinubu & Atiku Abubakar": "Bola Tinubu & Atiku Abubakar", // Example
+             "Goodluck Jonathan & Aminu Tambuwal": "Goodluck Jonathan & Aminu Tambuwal",
+             "goodluckTambuwal": "Goodluck Jonathan & Aminu Tambuwal", // Alias
+             "Goodluck Jonathan & Rabiu Kwankwaso": "Goodluck Jonathan & Rabiu Kwankwaso",
+             "goodluckRabiu": "Goodluck Jonathan & Rabiu Kwankwaso", // Alias
+             "Nasir El-Rufai & Bola Tinubu": "Nasir El-Rufai & Bola Tinubu", // Example
+             "Nasir El-Rufai & Peter Obi": "Nasir El-Rufai & Peter Obi",
+             "nasirElRufaiPeterObi": "Nasir El-Rufai & Peter Obi", // Alias
+             "Nyesom Wike & Aminu Tambuwal": "Nyesom Wike & Aminu Tambuwal",
+             "wikeTambuwal": "Nyesom Wike & Aminu Tambuwal", // Alias
+             "Peter Obi & Aminu Tambuwal": "Peter Obi & Aminu Tambuwal",
+             "peterTambuwal": "Peter Obi & Aminu Tambuwal", // Alias
+             "Peter Obi & Bukola Saraki": "Peter Obi & Bukola Saraki", // Already handled by peterBukola? Add anyway for clarity
+             "Peter Obi & Nasir El-Rufai": "Peter Obi & Nasir El-Rufai",
+             "peterNasir": "Peter Obi & Nasir El-Rufai", // Alias
+             "Peter Obi & Rabiu Kwankwaso": "Peter Obi & Rabiu Kwankwaso",
+             "peterRabiu": "Peter Obi & Rabiu Kwankwaso", // Alias
+             "Peter Obi & Sanusi Lamido": "Peter Obi & Sanusi Lamido",
+             "peterObiSanusiLamidu": "Peter Obi & Sanusi Lamido", // Alias
+             "Rabiu Kwankwaso & Peter Obi": "Rabiu Kwankwaso & Peter Obi",
+             "rabiuPeter": "Rabiu Kwankwaso & Peter Obi", // Alias
+             "Rotimi Amaechi & Bukola Saraki": "Rotimi Amaechi & Bukola Saraki",
+             "rotimiBukola": "Rotimi Amaechi & Bukola Saraki", // Alias
+             "Sanusi Lamido & Goodluck Jonathan": "Sanusi Lamido & Goodluck Jonathan", // Example
+             "Sanusi Lamido & Peter Obi": "Sanusi Lamido & Peter Obi",
+             "sanusiPeter": "Sanusi Lamido & Peter Obi", // Alias
+             "Sanusi Lamido & Yemi Osinbajo": "Sanusi Lamido & Yemi Osinbajo",
+             "sanusiYemi": "Sanusi Lamido & Yemi Osinbajo", // Alias
+             "Yemi Osinbajo & Bukola Saraki": "Yemi Osinbajo & Bukola Saraki",
+             "yemiBukola": "Yemi Osinbajo & Bukola Saraki", // Alias
+             "Yemi Osinbajo & Kashim Shettima": "Yemi Osinbajo & Kashim Shettima", // Example
+             // Add any other keys from your mapStates data here...
         };
         // --- End of Mapping ---
 
@@ -1408,7 +1471,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (key !== 'state' && key !== 'zone' && !key.startsWith('_') && typeof stateItem[key] === 'number') {
                     const currentVotes = stateItem[key];
                     if (currentVotes > maxVotes) {
-                        const standardizedComboName = keyToComboNameMap[key]; // Look up readable name
+                        // Look up readable name using the map
+                        const standardizedComboName = keyToComboNameMap[key];
                         if (standardizedComboName) {
                             maxVotes = currentVotes;
                             topComboName = standardizedComboName;
@@ -1416,6 +1480,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             // Warn only once per unmapped key
                             console.warn(`Map Data Warning: No combo name mapping found for CMS key: '${key}' in state '${stateName}'. Add this key to keyToComboNameMap.`);
                             unmappedKeys.add(key);
+                            // Optional: Use the key itself as a fallback name if no mapping found
+                            // maxVotes = currentVotes;
+                            // topComboName = key;
                         }
                     }
                 }
@@ -2045,8 +2112,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         switch (msg.type) {
             case "electionData":
-                // FIX: Pass the entire msg object, as data is not nested under 'payload' based on logs
-                if (msg && typeof msg === 'object' && msg.candidates && msg.combos) { // Check essential properties exist directly on msg
+                // FIX: Pass the entire msg object, as data is not nested under 'payload'
+                // Add a check to ensure essential data arrays exist directly on msg
+                if (msg && typeof msg === 'object' && Array.isArray(msg.candidates) && Array.isArray(msg.combos)) {
                     populateDataFromWix(msg); // Pass the whole msg object
                 } else {
                     console.error(t('errorInvalidPayload', { type: msg.type }), msg);
